@@ -55,7 +55,8 @@
   box-sizing: border-box;
 }
 
-html {
+/* scroll-behavior managed via JS to avoid fighting browser scroll restoration */
+html.js-smooth-scroll {
   scroll-behavior: smooth;
 }
 
