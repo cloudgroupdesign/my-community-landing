@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ScrollRestoration from "@/components/ScrollRestoration";
+import DemoModal from "@/components/DemoModal";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -23,13 +24,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uk" className={`${inter.variable} h-full antialiased`}>
+    <html lang="uk" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
       <head>
-        {/* Runs synchronously before first paint — hides page if scroll needs restoring */}
+        {/* Runs synchronously before first paint — hides page if scroll needs restoring.
+            Key is scoped by pathname so each page restores its own scroll position. */}
         <script dangerouslySetInnerHTML={{ __html: `
           (function() {
             try {
-              var y = parseInt(sessionStorage.getItem('scrollY') || '0', 10);
+              var key = 'scrollY_' + window.location.pathname;
+              var y = parseInt(sessionStorage.getItem(key) || '0', 10);
               if (y > 10) {
                 document.documentElement.style.opacity = '0';
                 document.documentElement.style.pointerEvents = 'none';
@@ -40,6 +43,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col font-sans">
         <ScrollRestoration />
+        <DemoModal />
         {children}
       </body>
     </html>

@@ -37,7 +37,7 @@ const audiences = [
 
 export default function ForWho() {
   return (
-    <section id="for-who" className="py-24" style={{ background: "#F9FAFB" }}>
+    <section id="for-who" className="py-24 bg-white">
       <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <p className="font-semibold text-sm uppercase tracking-widest mb-3" style={{ color: "#29ABE2" }}>
@@ -53,13 +53,13 @@ export default function ForWho() {
           {audiences.map((item, i) => (
             <div
               key={i}
-              className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 p-8"
+              className="group bg-white rounded-2xl border border-gray-100 transition-all duration-300 p-8"
               onMouseEnter={e => (e.currentTarget.style.borderColor = "#BAE6FD")}
               onMouseLeave={e => (e.currentTarget.style.borderColor = "")}
             >
               <div className="flex items-start gap-5">
                 <div
-                  className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm transition-colors"
+                  className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center transition-colors"
                   style={{ background: "#E0F2FE", border: "1px solid #BAE6FD" }}
                 >
                   {item.icon}
@@ -90,7 +90,7 @@ export default function ForWho() {
           </p>
           <a
             href="#cta"
-            className="inline-flex items-center gap-2 text-white font-semibold rounded-full px-8 py-4 text-base transition-all duration-200 shadow-lg group"
+            className="inline-flex items-center gap-2 text-white font-semibold rounded-xl px-8 py-4 text-base transition-all duration-200 group"
             style={{ background: "#29ABE2" }}
             onMouseEnter={e => { e.currentTarget.style.background = "#1A8EC4"; e.currentTarget.style.boxShadow = "0 20px 40px rgba(41,171,226,0.3)"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "#29ABE2"; e.currentTarget.style.boxShadow = ""; }}

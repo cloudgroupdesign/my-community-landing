@@ -5,28 +5,29 @@ import { useEffect } from "react";
 /**
  * Handles precise scroll position restoration on page reload:
  * 1. Disables browser's native scroll restoration (which snaps to sections)
- * 2. Saves exact scrollY to sessionStorage before unload
+ * 2. Saves exact scrollY to sessionStorage keyed by pathname before unload
  * 3. Restores it instantly on mount — pixel-perfect, no snap
  * 4. Enables smooth-scroll class only after restoration settles (anchor links work)
+ * 5. On navigation to a new page the key changes → no cross-page bleed
  */
 export default function ScrollRestoration() {
   useEffect(() => {
-    // Take over scroll restoration from the browser
     if ("scrollRestoration" in history) {
       history.scrollRestoration = "manual";
     }
+
+    const key = `scrollY_${window.location.pathname}`;
 
     const dispatchRestored = () => {
       window.dispatchEvent(new Event("scroll-restored"));
     };
 
     // Restore saved position instantly, then reveal + signal Hero
-    const saved = sessionStorage.getItem("scrollY");
+    const saved = sessionStorage.getItem(key);
     if (saved !== null) {
       const y = parseInt(saved, 10);
       window.scrollTo({ top: y, behavior: "instant" as ScrollBehavior });
-      sessionStorage.removeItem("scrollY");
-      // Wait for scroll to settle, then show page + start Hero animation
+      sessionStorage.removeItem(key);
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           document.documentElement.style.transition = "opacity 0.15s ease";
@@ -39,18 +40,16 @@ export default function ScrollRestoration() {
         });
       });
     } else {
-      // No restoration needed — signal Hero immediately
       dispatchRestored();
     }
 
-    // Enable smooth scrolling for anchor links after restoration settles
     const tid = setTimeout(() => {
       document.documentElement.classList.add("js-smooth-scroll");
     }, 300);
 
-    // Save exact position before page unloads
+    // Save exact position before page unloads — scoped to current pathname
     const saveScroll = () => {
-      sessionStorage.setItem("scrollY", String(window.scrollY));
+      sessionStorage.setItem(key, String(window.scrollY));
     };
     window.addEventListener("beforeunload", saveScroll);
 

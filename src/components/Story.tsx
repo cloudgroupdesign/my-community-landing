@@ -93,7 +93,7 @@ export default function Story() {
                 ].map((avatar, i) => (
                   <div
                     key={i}
-                    className="w-16 h-16 rounded-full bg-gray-700 border-2 border-white/20 flex items-center justify-center shadow-xl"
+                    className="w-16 h-16 rounded-full bg-gray-700 border-2 border-white/20 flex items-center justify-center"
                     style={{ marginTop: i === 1 ? -24 : 0 }}
                   >
                     <span className="text-white font-bold text-sm">{avatar.initials}</span>
@@ -117,7 +117,7 @@ export default function Story() {
                 { icon: <Award size={16} />, label: "10+ галузей" },
                 { icon: <Globe size={16} />, label: "Вся Україна" },
               ].map((badge, i) => (
-                <div key={i} className="bg-white border border-gray-100 rounded-xl px-3 py-3 flex items-center gap-2 shadow-sm">
+                <div key={i} className="bg-white border border-gray-100 rounded-xl px-3 py-3 flex items-center gap-2">
                   <span className="text-sky-500">{badge.icon}</span>
                   <span className="text-xs font-semibold text-gray-700">{badge.label}</span>
                 </div>
@@ -150,7 +150,7 @@ export default function Story() {
               <div className="space-y-4">
                 {painPoints.map((point, i) => (
                   <div key={i} className="flex gap-4 group">
-                    <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-white border border-gray-100 shadow-sm flex items-center justify-center">
+                    <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-white border border-gray-100 flex items-center justify-center">
                       {point.icon}
                     </div>
                     <div>

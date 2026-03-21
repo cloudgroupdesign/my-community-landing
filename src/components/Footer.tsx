@@ -36,10 +36,15 @@ export default function Footer() {
             <div>
               <p className="text-gray-900 font-semibold text-sm mb-4">Продукт</p>
               <ul className="space-y-3">
-                {["Можливості", "Інтеграції", "Ціни", "Безпека"].map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-gray-500 hover:text-gray-900 text-sm transition-colors">
-                      {link}
+                {[
+                  { label: "Можливості", href: "#features" },
+                  { label: "Інтеграції", href: "/integrations" },
+                  { label: "Ціни", href: "#" },
+                  { label: "Безпека", href: "#" },
+                ].map(({ label, href }) => (
+                  <li key={label}>
+                    <a href={href} className="text-gray-500 hover:text-gray-900 text-sm transition-colors">
+                      {label}
                     </a>
                   </li>
                 ))}
@@ -105,13 +110,13 @@ export default function Footer() {
               </a>
             </div>
 
-            <a
-              href="#cta"
-              className="inline-flex items-center gap-2 text-white font-semibold text-sm rounded-full px-5 py-2.5 transition-all mt-2 hover:opacity-90"
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent("open-demo-modal"))}
+              className="inline-flex items-center gap-2 text-white font-semibold text-sm rounded-lg px-5 py-2.5 transition-all mt-2 hover:opacity-90"
               style={{ background: "#29ABE2" }}
             >
               Замовити демо
-            </a>
+            </button>
           </div>
         </div>
       </div>

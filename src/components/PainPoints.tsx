@@ -56,7 +56,7 @@ export default function PainPoints() {
           {problems.map((item, i) => (
             <div
               key={i}
-              className="group bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-lg hover:border-sky-200 transition-all duration-300 cursor-pointer"
+              className="group bg-white border border-gray-100 rounded-2xl p-6 hover:border-sky-200 transition-all duration-300 cursor-pointer"
             >
               <div className="w-12 h-12 rounded-xl bg-gray-50 group-hover:bg-sky-50 flex items-center justify-center mb-5 transition-colors">
                 {item.icon}
@@ -79,7 +79,7 @@ export default function PainPoints() {
             </div>
             <a
               href="#cta"
-              className="mt-6 inline-flex items-center gap-2 text-white font-semibold text-sm rounded-xl px-5 py-2.5 hover:opacity-90 transition-colors w-fit"
+              className="mt-6 inline-flex items-center gap-2 text-white font-semibold text-sm rounded-lg px-5 py-2.5 hover:opacity-90 transition-colors w-fit"
               style={{ background: "#29ABE2" }}
             >
               Спробувати
@@ -92,7 +92,7 @@ export default function PainPoints() {
         <div className="text-center">
           <a
             href="#cta"
-            className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-full px-8 py-4 text-base transition-all duration-200 shadow-lg hover:shadow-sky-200 hover:shadow-xl group"
+            className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-xl px-8 py-4 text-base transition-all duration-200 group"
           >
             Переглянути всі можливості
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />

@@ -1,18 +1,25 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 
+function openDemoModal() {
+  window.dispatchEvent(new CustomEvent("open-demo-modal"));
+}
+
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
       <div className="w-full px-6">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center">
+          {/* Logo → home */}
+          <a href="/" className="flex items-center">
             <Image
               src="/logo.png"
               alt="My Community"
@@ -21,21 +28,21 @@ export default function Navbar() {
               className="h-9 w-auto object-contain"
               priority
             />
-          </div>
+          </a>
 
           {/* Desktop nav links */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-sm font-medium text-gray-600 transition-colors" style={{ ["--hover-color" as string]: "#29ABE2" }}
+            <a href={isHome ? "#features" : "/#features"} className="text-sm font-medium text-gray-600 transition-colors"
               onMouseEnter={e => (e.currentTarget.style.color = "#29ABE2")}
               onMouseLeave={e => (e.currentTarget.style.color = "")}>
               Можливості
             </a>
-            <a href="#for-who" className="text-sm font-medium text-gray-600 transition-colors"
+            <a href={isHome ? "#for-who" : "/#for-who"} className="text-sm font-medium text-gray-600 transition-colors"
               onMouseEnter={e => (e.currentTarget.style.color = "#29ABE2")}
               onMouseLeave={e => (e.currentTarget.style.color = "")}>
               Для кого
             </a>
-            <a href="#integrations" className="text-sm font-medium text-gray-600 transition-colors"
+            <a href={isHome ? "#integrations" : "/#integrations"} className="text-sm font-medium text-gray-600 transition-colors"
               onMouseEnter={e => (e.currentTarget.style.color = "#29ABE2")}
               onMouseLeave={e => (e.currentTarget.style.color = "")}>
               Інтеграції
@@ -45,22 +52,22 @@ export default function Navbar() {
           {/* CTA */}
           <div className="hidden md:flex items-center gap-3">
             <a
-              href="#cta"
+              href="#"
               className="text-sm font-semibold text-gray-700 transition-colors px-4 py-2.5"
               onMouseEnter={e => (e.currentTarget.style.color = "#29ABE2")}
               onMouseLeave={e => (e.currentTarget.style.color = "")}
             >
               Увійти
             </a>
-            <a
-              href="#cta"
-              className="text-white text-sm font-semibold rounded-xl px-6 py-2.5 transition-all duration-200 shadow-sm hover:shadow-md"
+            <button
+              onClick={openDemoModal}
+              className="text-white text-sm font-semibold rounded-lg px-6 py-2.5 transition-all duration-200"
               style={{ background: "#29ABE2" }}
               onMouseEnter={e => (e.currentTarget.style.background = "#1A8EC4")}
               onMouseLeave={e => (e.currentTarget.style.background = "#29ABE2")}
             >
-              Демо-перегляд
-            </a>
+              Записатись на демо
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -77,17 +84,16 @@ export default function Navbar() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-3">
-          <a href="#features" className="block text-sm font-medium text-gray-700 py-2" onClick={() => setMobileOpen(false)}>Можливості</a>
-          <a href="#for-who" className="block text-sm font-medium text-gray-700 py-2" onClick={() => setMobileOpen(false)}>Для кого</a>
-          <a href="#integrations" className="block text-sm font-medium text-gray-700 py-2" onClick={() => setMobileOpen(false)}>Інтеграції</a>
-          <a
-            href="#cta"
-            className="block w-full text-center text-white text-sm font-semibold rounded-full px-5 py-2.5 transition-colors mt-2"
+          <a href={isHome ? "#features" : "/#features"} className="block text-sm font-medium text-gray-700 py-2" onClick={() => setMobileOpen(false)}>Можливості</a>
+          <a href={isHome ? "#for-who" : "/#for-who"} className="block text-sm font-medium text-gray-700 py-2" onClick={() => setMobileOpen(false)}>Для кого</a>
+          <a href={isHome ? "#integrations" : "/#integrations"} className="block text-sm font-medium text-gray-700 py-2" onClick={() => setMobileOpen(false)}>Інтеграції</a>
+          <button
+            onClick={() => { setMobileOpen(false); openDemoModal(); }}
+            className="block w-full text-center text-white text-sm font-semibold rounded-lg px-5 py-2.5 transition-colors mt-2"
             style={{ background: "#29ABE2" }}
-            onClick={() => setMobileOpen(false)}
           >
-            Демо-перегляд
-          </a>
+            Записатись на демо
+          </button>
         </div>
       )}
     </nav>
