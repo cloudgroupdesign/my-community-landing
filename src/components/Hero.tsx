@@ -16,21 +16,23 @@ export default function Hero() {
   useEffect(() => {
     let rafId: number | null = null;
     let ticking = false;
-    // Cache viewport height — only update on resize, not every scroll
-    let vh = window.innerHeight;
+    // Cached values — never read inside scroll handler
+    let targetScroll = 1; // scrollY at which mockup center hits viewport center
+
+    const measureTarget = () => {
+      if (!mockupRef.current) return;
+      const mockupOffsetTop =
+        mockupRef.current.getBoundingClientRect().top +
+        window.scrollY +
+        mockupRef.current.offsetHeight / 2;
+      targetScroll = Math.max(1, mockupOffsetTop - window.innerHeight / 2);
+    };
 
     const update = () => {
       ticking = false;
       if (!mockupRef.current) return;
-      const rect = mockupRef.current.getBoundingClientRect();
-      // Skip work when mockup is far off-screen
-      if (rect.top > vh * 1.5 || rect.bottom < -vh * 0.5) return;
-      const distance = (rect.top + rect.height / 2) - vh / 2;
-      const triggerZone = 320;
-      const progress =
-        distance > triggerZone ? 0 :
-        distance <= 0          ? 1 :
-        1 - distance / triggerZone;
+      // Progress from 0 (page top) → 1 (mockup centered) using scrollY only
+      const progress = Math.min(1, Math.max(0, window.scrollY / targetScroll));
       const rotateX = 24 * (1 - progress);
       const scale   = 0.88 + 0.12 * progress;
       mockupRef.current.style.transform =
@@ -43,11 +45,12 @@ export default function Hero() {
       rafId = requestAnimationFrame(update);
     };
 
-    const onResize = () => { vh = window.innerHeight; };
+    const onResize = () => { measureTarget(); update(); };
 
+    measureTarget();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize, { passive: true });
-    update(); // initial
+    update();
 
     return () => {
       window.removeEventListener("scroll", onScroll);
