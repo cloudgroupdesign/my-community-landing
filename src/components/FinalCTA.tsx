@@ -5,6 +5,7 @@ import { CheckIcon } from "@heroicons/react/20/solid";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { Send } from "lucide-react";
 import { PhoneIcon } from "@heroicons/react/24/solid";
+// TODO: replace placeholders with real links before launch
 
 const bullets = [
   "Безкоштовна демо-презентація — побачите систему в дії за 30 хвилин",
@@ -151,23 +152,15 @@ export default function FinalCTA() {
 
         {/* Social links */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginTop: 40 }}>
-          <a
-            href="https://t.me/mycommunity"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-gray-500 hover:text-gray-700 text-sm transition-colors"
-          >
+          <span className="flex items-center gap-2 text-gray-400 text-sm">
             <Send size={15} />
             Telegram
-          </a>
+          </span>
           <span className="text-gray-300">|</span>
-          <a
-            href="tel:+380"
-            className="flex items-center gap-2 text-gray-500 hover:text-gray-700 text-sm transition-colors"
-          >
+          <span className="flex items-center gap-2 text-gray-400 text-sm">
             <PhoneIcon className="w-4 h-4" />
             +38 (0XX) XXX-XX-XX
-          </a>
+          </span>
         </div>
       </div>
     </section>

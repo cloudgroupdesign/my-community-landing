@@ -70,45 +70,35 @@ export default function Footer() {
             <p className="text-gray-900 font-semibold text-sm">Контакти</p>
 
             <div className="space-y-3">
-              <a
-                href="https://t.me/mycommunity"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 group"
-              >
-                <div className="w-9 h-9 rounded-xl bg-gray-100 group-hover:bg-sky-50 border border-gray-200 flex items-center justify-center transition-all">
-                  <Send size={15} className="text-gray-400 group-hover:text-[#29A9EB] transition-colors" />
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center">
+                  <Send size={15} className="text-gray-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium">Telegram</p>
+                  <p className="text-sm text-gray-700 font-medium">Telegram</p>
                   <p className="text-xs text-gray-400">@mycommunity</p>
                 </div>
-              </a>
+              </div>
 
-              <a
-                href="https://instagram.com/mycommunity"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 group"
-              >
-                <div className="w-9 h-9 rounded-xl bg-gray-100 group-hover:bg-pink-50 border border-gray-200 flex items-center justify-center transition-all">
-                  <Instagram size={15} className="text-gray-400 group-hover:text-pink-500 transition-colors" />
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center">
+                  <Instagram size={15} className="text-gray-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium">Instagram</p>
+                  <p className="text-sm text-gray-700 font-medium">Instagram</p>
                   <p className="text-xs text-gray-400">@mycommunity.ua</p>
                 </div>
-              </a>
+              </div>
 
-              <a href="tel:+380" className="flex items-center gap-3 group">
-                <div className="w-9 h-9 rounded-xl bg-gray-100 group-hover:bg-sky-50 border border-gray-200 flex items-center justify-center transition-all">
-                  <Phone size={15} className="text-gray-400 group-hover:text-sky-500 transition-colors" />
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center">
+                  <Phone size={15} className="text-gray-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-700 group-hover:text-gray-900 transition-colors font-medium">Телефон</p>
+                  <p className="text-sm text-gray-700 font-medium">Телефон</p>
                   <p className="text-xs text-gray-400">+38 (0XX) XXX-XX-XX</p>
                 </div>
-              </a>
+              </div>
             </div>
 
             <button
