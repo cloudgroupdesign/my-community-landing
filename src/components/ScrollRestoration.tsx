@@ -16,20 +16,30 @@ export default function ScrollRestoration() {
       history.scrollRestoration = "manual";
     }
 
-    // Restore saved position instantly (before any paint if possible)
+    // Restore saved position instantly, then fade in
     const saved = sessionStorage.getItem("scrollY");
     if (saved !== null) {
       const y = parseInt(saved, 10);
-      // Use instant scroll — no smooth behavior interference
-      document.documentElement.style.scrollBehavior = "auto";
+      // Snap to exact position — no smooth interference
       window.scrollTo({ top: y, behavior: "instant" as ScrollBehavior });
       sessionStorage.removeItem("scrollY");
+      // Fade in after scroll is locked in place
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          document.documentElement.style.transition = "opacity 0.2s ease";
+          document.documentElement.style.opacity = "1";
+          document.documentElement.style.pointerEvents = "";
+          setTimeout(() => {
+            document.documentElement.style.transition = "";
+          }, 250);
+        });
+      });
     }
 
-    // After position is restored, enable smooth scrolling for anchor links
+    // Enable smooth scrolling for anchor links after restoration settles
     const tid = setTimeout(() => {
       document.documentElement.classList.add("js-smooth-scroll");
-    }, 100);
+    }, 300);
 
     // Save exact position before page unloads
     const saveScroll = () => {

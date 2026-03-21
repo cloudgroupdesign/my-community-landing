@@ -24,6 +24,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk" className={`${inter.variable} h-full antialiased`}>
+      <head>
+        {/* Runs synchronously before first paint — hides page if scroll needs restoring */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function() {
+            try {
+              var y = parseInt(sessionStorage.getItem('scrollY') || '0', 10);
+              if (y > 10) {
+                document.documentElement.style.opacity = '0';
+                document.documentElement.style.pointerEvents = 'none';
+              }
+            } catch(e) {}
+          })();
+        ` }} />
+      </head>
       <body className="min-h-full flex flex-col font-sans">
         <ScrollRestoration />
         {children}
