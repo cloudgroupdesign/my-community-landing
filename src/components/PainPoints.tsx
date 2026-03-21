@@ -37,16 +37,16 @@ const problems = [
 export default function PainPoints() {
   return (
     <section id="problems" className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
           <p className="text-sky-500 font-semibold text-sm uppercase tracking-widest mb-3">
             Болі бізнесу
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-h2 text-gray-900 mb-4">
             Які задачі вирішує система
           </h2>
-          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+          <p className="text-t1 text-gray-500 max-w-2xl mx-auto">
             Кожна з цих проблем коштує вам грошей та часу. My Community закриває їх усі в одній платформі.
           </p>
         </div>
@@ -61,28 +61,26 @@ export default function PainPoints() {
               <div className="w-12 h-12 rounded-xl bg-gray-50 group-hover:bg-sky-50 flex items-center justify-center mb-5 transition-colors">
                 {item.icon}
               </div>
-              <h3 className="font-bold text-gray-900 text-lg mb-2">{item.title}</h3>
+              <h3 className="text-h5 text-gray-900 mb-2">{item.title}</h3>
               <p className="text-gray-500 text-sm leading-relaxed">{item.description}</p>
             </div>
           ))}
 
           {/* Solution card */}
-          <div
-            className="rounded-2xl p-6 flex flex-col justify-between shadow-sm"
-            style={{ background: "linear-gradient(135deg, #0369A1, #29ABE2)" }}
-          >
+          <div className="rounded-2xl p-6 flex flex-col justify-between bg-gray-950">
             <div>
-              <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mb-5">
+              <div className="w-12 h-12 rounded-xl bg-gray-800 flex items-center justify-center mb-5">
                 <SparklesIcon className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-bold text-white text-lg mb-2">Одна система — всі рішення</h3>
-              <p className="text-sky-100 text-sm leading-relaxed">
+              <h3 className="text-h5 text-white mb-2">Одна система — всі рішення</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">
                 My Community замінює десятки інструментів і повертає вам контроль над бізнесом.
               </p>
             </div>
             <a
               href="#cta"
-              className="mt-6 inline-flex items-center gap-2 bg-white text-sky-600 font-semibold text-sm rounded-full px-5 py-2.5 hover:bg-sky-50 transition-colors w-fit"
+              className="mt-6 inline-flex items-center gap-2 text-white font-semibold text-sm rounded-xl px-5 py-2.5 hover:opacity-90 transition-colors w-fit"
+              style={{ background: "#29ABE2" }}
             >
               Спробувати
               <ArrowRight size={15} />

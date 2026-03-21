@@ -14,33 +14,46 @@ export default function Hero() {
   const mockupRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
+    let rafId: number | null = null;
+    let ticking = false;
+    // Cache viewport height — only update on resize, not every scroll
+    let vh = window.innerHeight;
+
+    const update = () => {
+      ticking = false;
       if (!mockupRef.current) return;
       const rect = mockupRef.current.getBoundingClientRect();
-      const mockupCenterY = rect.top + rect.height / 2;
-      const viewportCenter = window.innerHeight / 2;
-      const distance = mockupCenterY - viewportCenter;
-
-      // Animation only triggers in the last 280px before center
-      const triggerZone = 280;
-      let progress: number;
-      if (distance > triggerZone) {
-        progress = 0; // still fully tilted
-      } else if (distance <= 0) {
-        progress = 1; // fully flat (past center)
-      } else {
-        progress = 1 - distance / triggerZone;
-      }
-
+      // Skip work when mockup is far off-screen
+      if (rect.top > vh * 1.5 || rect.bottom < -vh * 0.5) return;
+      const distance = (rect.top + rect.height / 2) - vh / 2;
+      const triggerZone = 320;
+      const progress =
+        distance > triggerZone ? 0 :
+        distance <= 0          ? 1 :
+        1 - distance / triggerZone;
       const rotateX = 24 * (1 - progress);
-      const scale = 0.88 + 0.12 * progress;
+      const scale   = 0.88 + 0.12 * progress;
       mockupRef.current.style.transform =
         `perspective(1200px) rotateX(${rotateX}deg) scale(${scale})`;
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      rafId = requestAnimationFrame(update);
+    };
+
+    const onResize = () => { vh = window.innerHeight; };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
+    update(); // initial
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (
@@ -160,8 +173,9 @@ export default function Hero() {
               overflow: "hidden",
               filter: "blur(48px)",
               opacity: 0.16,
-              transform: "scale(1.08) translateY(16px)",
+              transform: "scale(1.08) translateZ(0) translateY(16px)",
               zIndex: -1,
+              contain: "layout style paint",
             }}
           >
             <div

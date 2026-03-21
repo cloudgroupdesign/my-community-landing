@@ -339,16 +339,16 @@ export default function Features() {
 
   return (
     <section id="features" className="py-24" style={{ background: "#FAFAFF" }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-14">
           <p className="text-sky-500 font-semibold text-sm uppercase tracking-widest mb-3">
             Можливості
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-h2 text-gray-900 mb-4">
             Можливості My Community
           </h2>
-          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+          <p className="text-t1 text-gray-500 max-w-2xl mx-auto">
             Все що потрібно для ефективного бізнесу — в одному продукті
           </p>
         </div>

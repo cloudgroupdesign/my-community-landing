@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { CodeBracketIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 
 /* ─── Integration cards data ─────────────────────────────── */
@@ -110,9 +111,28 @@ function IntegrationCard({ logo, name, description }: { logo: React.ReactNode; n
 export default function Integrations() {
   const row1Doubled = [...row1, ...row1];
   const row2Doubled = [...row2, ...row2];
+  const sectionRef = useRef<HTMLElement>(null);
+  const row1Ref = useRef<HTMLDivElement>(null);
+  const row2Ref = useRef<HTMLDivElement>(null);
+
+  // Pause marquee animations when section is not visible (saves GPU)
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const paused = !entry.isIntersecting;
+        row1Ref.current?.style.setProperty("animation-play-state", paused ? "paused" : "running");
+        row2Ref.current?.style.setProperty("animation-play-state", paused ? "paused" : "running");
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="integrations" className="py-24 bg-white overflow-hidden">
+    <section ref={sectionRef} id="integrations" className="py-24 bg-white overflow-hidden">
       <div className="max-w-[1080px] mx-auto px-6 lg:px-8 mb-12">
         {/* Header */}
         <div className="text-center mb-16">
@@ -127,8 +147,8 @@ export default function Integrations() {
       </div>
 
       {/* Row 1 — scrolls left */}
-      <div className="relative mb-4" style={{ maskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)" }}>
-        <div className="flex" style={{ animation: "marqueeLeft 40s linear infinite", willChange: "transform" }}>
+      <div className="relative mb-4" style={{ maskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)", contain: "layout style" }}>
+        <div ref={row1Ref} className="flex" style={{ animation: "marqueeLeft 40s linear infinite", willChange: "transform" }}>
           {row1Doubled.map((item, i) => (
             <IntegrationCard key={i} {...item} />
           ))}
@@ -136,8 +156,8 @@ export default function Integrations() {
       </div>
 
       {/* Row 2 — scrolls right */}
-      <div className="relative mb-12" style={{ maskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)" }}>
-        <div className="flex" style={{ animation: "marqueeRight 40s linear infinite", willChange: "transform" }}>
+      <div className="relative mb-12" style={{ maskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)", contain: "layout style" }}>
+        <div ref={row2Ref} className="flex" style={{ animation: "marqueeRight 40s linear infinite", willChange: "transform" }}>
           {row2Doubled.map((item, i) => (
             <IntegrationCard key={i} {...item} />
           ))}

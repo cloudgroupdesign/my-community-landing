@@ -61,18 +61,21 @@ html {
 
 /* Integrations marquee — seamless infinite scroll */
 @keyframes marqueeLeft {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 @keyframes marqueeRight {
-  0%   { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
+  0%   { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
-/* Rotating gradient for mockup border + glow */
+/* Pause marquee when section is hidden (IntersectionObserver adds class) */
+.marquee-paused { animation-play-state: paused !important; }
+
+/* Rotating gradient for mockup border + glow — GPU only */
 @keyframes gradientSpin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from { transform: rotate3d(0, 0, 1, 0deg); }
+  to   { transform: rotate3d(0, 0, 1, 360deg); }
 }
 
 /* H1 word-by-word plop-in animation (Perspective.co style) */

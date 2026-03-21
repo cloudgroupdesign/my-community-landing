@@ -34,13 +34,13 @@ const advantages = [
 export default function Advantages() {
   return (
     <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <p className="font-semibold text-sm uppercase tracking-widest mb-3" style={{ color: "#29ABE2" }}>
             Переваги
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Чим My Community відрізняється</h2>
-          <p className="text-gray-500 text-lg max-w-2xl mx-auto">Не просто ще один SaaS — а рішення, яке розуміє ваш бізнес</p>
+          <h2 className="text-h2 text-gray-900 mb-4">Чим My Community відрізняється</h2>
+          <p className="text-t1 text-gray-500 max-w-2xl mx-auto">Не просто ще один SaaS — а рішення, яке розуміє ваш бізнес</p>
         </div>
 
         <div className="max-w-4xl mx-auto space-y-0">

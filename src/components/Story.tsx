@@ -35,17 +35,17 @@ const painPoints = [
 
 export default function Story() {
   return (
-    <section className="py-24" style={{ background: "#F9FAFB" }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 bg-white">
+      <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-16">
           <p className="text-sky-500 font-semibold text-sm uppercase tracking-widest mb-3">
             Наша місія
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-h2 text-gray-900 mb-4">
             Чому створено My Community
           </h2>
-          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+          <p className="text-t1 text-gray-500 max-w-2xl mx-auto">
             Ми пройшли той самий шлях, що й наші клієнти — і знаємо, де болить
           </p>
         </div>
@@ -55,15 +55,13 @@ export default function Story() {
           <div className="relative">
             <div
               className="relative rounded-2xl overflow-hidden aspect-[4/3] flex items-end p-8"
-              style={{
-                background: "linear-gradient(135deg, #0C2D48 0%, #1A5276 40%, #1A8EC4 100%)",
-              }}
+              style={{ background: "#111827" }}
             >
               {/* Decorative grid lines */}
               <div className="absolute inset-0 opacity-10"
                 style={{
                   backgroundImage:
-                    "linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)",
+                    "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
                   backgroundSize: "40px 40px",
                 }}
               />
@@ -95,7 +93,7 @@ export default function Story() {
                 ].map((avatar, i) => (
                   <div
                     key={i}
-                    className={`w-16 h-16 rounded-full bg-gradient-to-br ${avatar.color} border-3 border-white/30 flex items-center justify-center shadow-xl`}
+                    className="w-16 h-16 rounded-full bg-gray-700 border-2 border-white/20 flex items-center justify-center shadow-xl"
                     style={{ marginTop: i === 1 ? -24 : 0 }}
                   >
                     <span className="text-white font-bold text-sm">{avatar.initials}</span>
@@ -130,7 +128,7 @@ export default function Story() {
           {/* Right — story text + pain points */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              <h3 className="text-h3 text-gray-900 mb-4">
                 Створена підприємцями для підприємців
               </h3>
               <p className="text-gray-600 leading-relaxed mb-4">
