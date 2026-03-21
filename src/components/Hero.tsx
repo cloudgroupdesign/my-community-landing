@@ -59,7 +59,7 @@ export default function Hero() {
           style={{
             fontSize: "clamp(38px, 5.5vw, 72px)",
             fontWeight: 700,
-            lineHeight: 1.1,
+            lineHeight: 1.05,
             letterSpacing: "-0.01em",
             color: "#141414",
           }}

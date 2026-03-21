@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Check, ArrowRight, Send } from "lucide-react";
+import { CheckIcon } from "@heroicons/react/20/solid";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import { Send } from "lucide-react";
 import { PhoneIcon } from "@heroicons/react/24/solid";
 
 const bullets = [
@@ -17,81 +19,50 @@ export default function FinalCTA() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      setSubmitted(true);
-    }
+    if (email) setSubmitted(true);
   };
 
   return (
-    <section
-      id="cta"
-      className="py-28 relative overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #0C2D48 0%, #1A5276 40%, #1A8EC4 80%, #29ABE2 100%)" }}
-    >
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-20"
-          style={{ background: "radial-gradient(circle, #7DD3F0, transparent)", transform: "translate(30%, -30%)" }}
-        />
-        <div
-          className="absolute bottom-0 left-0 w-96 h-96 rounded-full opacity-15"
-          style={{ background: "radial-gradient(circle, #BAE6FD, transparent)", transform: "translate(-30%, 30%)" }}
-        />
-        {/* Grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-          }}
-        />
-      </div>
+    <section id="cta" className="py-24 bg-white">
+      <div className="max-w-[1080px] mx-auto px-6 lg:px-8 text-center">
 
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Top badge */}
-        <div className="inline-flex items-center gap-2 bg-white/15 border border-white/20 rounded-full px-5 py-2 mb-8">
-          <span className="text-base">🇺🇦</span>
-          <span className="text-white/90 text-sm font-medium">Підтримуємо український бізнес</span>
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 text-sm font-medium text-gray-500 bg-gray-100 border border-gray-200">
+          <span className="text-base leading-none">🇺🇦</span>
+          Підтримуємо український бізнес
         </div>
 
         {/* Headline */}
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
-          Ми запрошуємо{" "}
-          <br className="hidden md:block" />
-          <span className="text-transparent bg-clip-text"
-            style={{ backgroundImage: "linear-gradient(90deg, #BAE6FD, #E0F2FE)" }}>
-            український бізнес
-          </span>
+        <h2 className="text-h2 text-gray-900 mb-6">
+          Ми запрошуємо<br />український бізнес
         </h2>
 
-        <p className="text-sky-100 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-t1 text-gray-500 max-w-xl mx-auto mb-10">
           Приєднуйтесь до 500+ компаній, які вже управляють бізнесом ефективно з My Community
         </p>
 
         {/* Bullets */}
-        <div className="flex flex-col items-start sm:items-center gap-4 mb-10 max-w-xl mx-auto">
+        <div className="flex flex-col items-start gap-4 mb-10 max-w-md mx-auto text-left">
           {bullets.map((bullet, i) => (
-            <div key={i} className="flex items-start gap-3 text-left">
-              <div className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-400 flex items-center justify-center mt-0.5">
-                <Check size={12} className="text-white" strokeWidth={3} />
+            <div key={i} className="flex items-start gap-3">
+              <div className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5" style={{ background: "#29ABE2" }}>
+                <CheckIcon className="w-3 h-3 text-white" />
               </div>
-              <span className="text-white/90 text-sm leading-relaxed">{bullet}</span>
+              <span className="text-gray-600 text-sm leading-relaxed">{bullet}</span>
             </div>
           ))}
         </div>
 
-        {/* Mission box */}
-        <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-8 py-6 mb-12 max-w-2xl mx-auto">
-          <p className="text-white/90 text-base leading-relaxed italic">
-            &ldquo;Наша місія — дати українському бізнесу інструмент, який допоможе рости, незважаючи на жодні виклики. My Community — це не просто система, це ваш надійний партнер у розвитку.&rdquo;
+        {/* Mission quote */}
+        <div className="border border-gray-200 rounded-2xl px-8 py-6 mb-12 max-w-xl mx-auto text-left bg-gray-50">
+          <p className="text-gray-600 text-sm leading-relaxed italic">
+            &ldquo;Наша місія — дати українському бізнесу інструмент, який допоможе рости, незважаючи на жодні виклики.&rdquo;
           </p>
-          <div className="flex items-center justify-center gap-3 mt-4">
-            <div className="w-8 h-8 rounded-full bg-sky-400/40 flex items-center justify-center">
-              <span className="text-white text-xs font-bold">РК</span>
+          <div className="flex items-center gap-3 mt-4">
+            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+              <span className="text-gray-600 text-xs font-bold">РК</span>
             </div>
-            <p className="text-white/70 text-sm font-medium">Засновник My Community</p>
+            <p className="text-gray-500 text-sm">Засновник My Community</p>
           </div>
         </div>
 
@@ -104,7 +75,7 @@ export default function FinalCTA() {
                 placeholder="Ваше ім'я"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="flex-1 bg-white/15 border border-white/25 rounded-full px-5 py-3.5 text-white placeholder-white/50 text-sm focus:outline-none focus:border-white/50 focus:bg-white/20 transition-all"
+                className="flex-1 bg-white border border-gray-200 rounded-xl px-5 py-3.5 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:border-gray-400 transition-all"
               />
               <input
                 type="email"
@@ -112,27 +83,28 @@ export default function FinalCTA() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="flex-1 bg-white/15 border border-white/25 rounded-full px-5 py-3.5 text-white placeholder-white/50 text-sm focus:outline-none focus:border-white/50 focus:bg-white/20 transition-all"
+                className="flex-1 bg-white border border-gray-200 rounded-xl px-5 py-3.5 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:border-gray-400 transition-all"
               />
               <button
                 type="submit"
-                className="flex-shrink-0 bg-white text-sky-600 font-bold rounded-full px-7 py-3.5 text-sm hover:bg-sky-50 transition-all duration-200 shadow-lg hover:shadow-xl inline-flex items-center gap-2 group"
+                className="flex-shrink-0 text-white font-bold rounded-xl px-7 py-3.5 text-sm hover:opacity-90 transition-all duration-200 inline-flex items-center gap-2 group"
+                style={{ background: "#29ABE2" }}
               >
                 Залишити заявку
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             </form>
-            <p className="text-white/40 text-xs">
+            <p className="text-gray-400 text-xs">
               Натискаючи кнопку, ви погоджуєтесь з умовами обробки персональних даних
             </p>
           </div>
         ) : (
-          <div className="bg-white/15 border border-white/25 rounded-2xl px-8 py-8 max-w-md mx-auto">
-            <div className="w-14 h-14 rounded-full bg-emerald-400 flex items-center justify-center mx-auto mb-4">
-              <Check size={24} className="text-white" strokeWidth={3} />
+          <div className="border border-gray-200 rounded-2xl px-8 py-8 max-w-md mx-auto bg-gray-50">
+            <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: "#29ABE2" }}>
+              <CheckIcon className="w-7 h-7 text-white" />
             </div>
-            <h3 className="text-white font-bold text-xl mb-2">Заявку отримано!</h3>
-            <p className="text-white/70 text-sm leading-relaxed">
+            <h3 className="text-gray-900 font-bold text-xl mb-2">Заявку отримано!</h3>
+            <p className="text-gray-500 text-sm leading-relaxed">
               Наш менеджер зв&apos;яжеться з вами найближчим часом для узгодження деталей демо.
             </p>
           </div>
@@ -140,20 +112,14 @@ export default function FinalCTA() {
 
         {/* Social links */}
         <div className="flex items-center justify-center gap-4 mt-10">
-          <a
-            href="https://t.me/mycommunity"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-white/60 hover:text-white text-sm transition-colors"
-          >
+          <a href="https://t.me/mycommunity" target="_blank" rel="noopener noreferrer"
+            className="flex items-center gap-2 text-gray-500 hover:text-gray-700 text-sm transition-colors">
             <Send size={15} />
             Telegram
           </a>
-          <span className="text-white/20">|</span>
-          <a
-            href="tel:+380"
-            className="flex items-center gap-2 text-white/60 hover:text-white text-sm transition-colors"
-          >
+          <span className="text-gray-300">|</span>
+          <a href="tel:+380"
+            className="flex items-center gap-2 text-gray-500 hover:text-gray-700 text-sm transition-colors">
             <PhoneIcon className="w-4 h-4" />
             +38 (0XX) XXX-XX-XX
           </a>
