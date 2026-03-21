@@ -48,10 +48,32 @@ export default function Hero() {
     const onResize = () => { measureTarget(); update(); };
 
     measureTarget();
+
+    // On mount: if page is already scrolled (reload/navigate), smoothly
+    // ease the mockup from its initial tilt to the correct position
+    // then switch to instant updates so scroll feels snappy
+    if (window.scrollY > 0 && mockupRef.current) {
+      mockupRef.current.style.transition =
+        "transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+      update();
+      const tid = setTimeout(() => {
+        if (mockupRef.current) mockupRef.current.style.transition = "none";
+      }, 750);
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onResize, { passive: true });
+      return () => {
+        clearTimeout(tid);
+        window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("resize", onResize);
+        if (rafId !== null) cancelAnimationFrame(rafId);
+      };
+    }
+
+    // Page loaded at top — no correction needed, go straight to instant mode
+    if (mockupRef.current) mockupRef.current.style.transition = "none";
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize, { passive: true });
-    update();
-
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
@@ -161,7 +183,7 @@ export default function Hero() {
             position: "relative",
             transformOrigin: "center top",
             transform: "perspective(1200px) rotateX(24deg) scale(0.88)",
-            transition: "transform 0.05s linear",
+            transition: "none",
             willChange: "transform",
             isolation: "isolate",
           }}
