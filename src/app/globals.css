@@ -19,12 +19,73 @@
   --color-brand-orange-dark: #E07A08;
 }
 
+/* ─── Typography scale ───────────────────────────────────────────
+   Base: H1 = 72px · T1 = 20px · Button-hero = 20px
+   ──────────────────────────────────────────────────────────────── */
+:root {
+  --text-h1:   72px;  /* Hero heading                         */
+  --text-h2:   48px;  /* Section headings                     */
+  --text-h3:   32px;  /* Sub-section headings                 */
+  --text-h4:   24px;  /* Card headings                        */
+  --text-h5:   20px;  /* Small headings                       */
+  --text-t1:   20px;  /* Hero body / large description        */
+  --text-t2:   16px;  /* Regular body text                    */
+  --text-t3:   14px;  /* Small text, labels, captions         */
+  --text-btn-l: 20px; /* Hero button                         */
+  --text-btn-m: 16px; /* Regular button                      */
+
+  --lh-heading: 1.05;
+  --lh-body:    1.6;
+}
+
+@layer utilities {
+  .text-h1   { font-size: var(--text-h1);    line-height: var(--lh-heading); font-weight: 900; letter-spacing: -0.02em; }
+  .text-h2   { font-size: var(--text-h2);    line-height: 1.1;              font-weight: 800; letter-spacing: -0.02em; }
+  .text-h3   { font-size: var(--text-h3);    line-height: 1.2;              font-weight: 700; }
+  .text-h4   { font-size: var(--text-h4);    line-height: 1.3;              font-weight: 600; }
+  .text-h5   { font-size: var(--text-h5);    line-height: 1.4;              font-weight: 600; }
+  .text-t1   { font-size: var(--text-t1);    line-height: var(--lh-body); }
+  .text-t2   { font-size: var(--text-t2);    line-height: var(--lh-body); }
+  .text-t3   { font-size: var(--text-t3);    line-height: var(--lh-body); }
+  .text-btn-l { font-size: var(--text-btn-l); font-weight: 600; }
+  .text-btn-m { font-size: var(--text-btn-m); font-weight: 600; }
+}
+
 * {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Rotating gradient for mockup border + glow */
+@keyframes gradientSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* H1 word-by-word plop-in animation (Perspective.co style) */
+@keyframes plopInAnimation {
+  0%   { opacity: 0; transform: translateY(2.5rem) rotateX(-25deg); }
+  100% { opacity: 1; transform: translateY(0)      rotateX(0deg);   }
+}
+
+.hero-word-outer {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.1;
+  perspective: 500px;
+  vertical-align: middle;
+}
+
+.hero-word-inner {
+  display: inline-block;
+  margin-top: -0.15em;
+  vertical-align: middle;
+  overflow: hidden;
+  perspective: 500px;
+  animation: plopInAnimation 0.8s cubic-bezier(0.3, 1.34, 0.38, 1) both;
 }
 
 body {
