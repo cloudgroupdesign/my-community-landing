@@ -16,24 +16,31 @@ export default function ScrollRestoration() {
       history.scrollRestoration = "manual";
     }
 
-    // Restore saved position instantly, then fade in
+    const dispatchRestored = () => {
+      window.dispatchEvent(new Event("scroll-restored"));
+    };
+
+    // Restore saved position instantly, then reveal + signal Hero
     const saved = sessionStorage.getItem("scrollY");
     if (saved !== null) {
       const y = parseInt(saved, 10);
-      // Snap to exact position — no smooth interference
       window.scrollTo({ top: y, behavior: "instant" as ScrollBehavior });
       sessionStorage.removeItem("scrollY");
-      // Fade in after scroll is locked in place
+      // Wait for scroll to settle, then show page + start Hero animation
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          document.documentElement.style.transition = "opacity 0.2s ease";
+          document.documentElement.style.transition = "opacity 0.15s ease";
           document.documentElement.style.opacity = "1";
           document.documentElement.style.pointerEvents = "";
           setTimeout(() => {
             document.documentElement.style.transition = "";
-          }, 250);
+            dispatchRestored();
+          }, 160);
         });
       });
+    } else {
+      // No restoration needed — signal Hero immediately
+      dispatchRestored();
     }
 
     // Enable smooth scrolling for anchor links after restoration settles

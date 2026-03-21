@@ -93,14 +93,22 @@ html.js-smooth-scroll {
   vertical-align: middle;
 }
 
+/* Stage 1: H1 words — paused until .hero-stage-1 is added */
 .hero-word-inner {
   display: inline-block;
   margin-top: -0.15em;
   vertical-align: middle;
   overflow: hidden;
   perspective: 500px;
+  opacity: 0;
   animation: plopInAnimation 0.8s cubic-bezier(0.3, 1.34, 0.38, 1) both;
+  animation-play-state: paused;
 }
+.hero-stage-1 .hero-word-inner {
+  animation-play-state: running;
+}
+
+/* Hero entrance — opacity/transform managed via inline React styles */
 
 body {
   background: var(--background);

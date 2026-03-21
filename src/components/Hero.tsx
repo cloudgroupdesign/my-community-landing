@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PlayCircleIcon } from "@heroicons/react/24/solid";
 import { StarIcon } from "@heroicons/react/20/solid";
 
@@ -10,9 +10,33 @@ const H1_LINES = [
   ["для", "підприємців"],
 ];
 
+// H1 words total count for animation duration estimate
+const WORD_COUNT = H1_LINES.flat().length; // 6 words
+const H1_ANIM_DURATION = WORD_COUNT * 120 + 800; // ~1520ms until last word finishes
+
 export default function Hero() {
   const mockupRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [stage, setStage] = useState(0); // 0=hidden 1=h1 2=desc 3=rest
 
+  // ── Staged entrance animation ────────────────────────────
+  useEffect(() => {
+    const start = () => {
+      setStage(1);                                            // H1 words
+      setTimeout(() => setStage(2), H1_ANIM_DURATION * 0.5); // desc ~760ms
+      setTimeout(() => setStage(3), H1_ANIM_DURATION * 0.8); // rest ~1220ms
+    };
+    // Wait for ScrollRestoration to signal readiness
+    window.addEventListener("scroll-restored", start, { once: true });
+    // Fallback: start after 300ms even without the event
+    const fallback = setTimeout(start, 300);
+    return () => {
+      window.removeEventListener("scroll-restored", start);
+      clearTimeout(fallback);
+    };
+  }, []);
+
+  // ── Scroll-driven mockup tilt ─────────────────────────────
   useEffect(() => {
     let rafId: number | null = null;
     let ticking = false;
@@ -81,17 +105,26 @@ export default function Hero() {
     };
   }, []);
 
+  // Derive stage classes for the section wrapper
+  const stageClass = [
+    stage >= 1 ? "hero-stage-1" : "",
+    stage >= 2 ? "hero-stage-2" : "",
+    stage >= 3 ? "hero-stage-3" : "",
+  ].filter(Boolean).join(" ");
+
   return (
-    <section className="bg-white" style={{ paddingTop: 80 }}>
+    <section ref={sectionRef} className={`bg-white ${stageClass}`} style={{ paddingTop: 80 }}>
       <div className="max-w-[1080px] mx-auto px-6 lg:px-8 text-center" style={{ paddingTop: 40, paddingBottom: 48 }}>
 
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 text-sm font-medium text-gray-500 bg-gray-100 border border-gray-200">
-          <span className="text-base leading-none">🇺🇦</span>
-          Українська ERP/CRM система для бізнесу
+        {/* Badge — part of Stage 1 (fades with H1 area) */}
+        <div className="hero-word-outer" style={{ display: "block", overflow: "visible", perspective: "none" }}>
+          <div className="hero-word-inner inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 text-sm font-medium text-gray-500 bg-gray-100 border border-gray-200" style={{ animationDelay: "0s" }}>
+            <span className="text-base leading-none">🇺🇦</span>
+            Українська ERP/CRM система для бізнесу
+          </div>
         </div>
 
-        {/* H1 — word-by-word animation */}
+        {/* H1 — word-by-word animation (Stage 1) */}
         <h1
           className="mb-8"
           style={{
@@ -110,7 +143,7 @@ export default function Hero() {
                   <span key={wi} className="hero-word-outer">
                     <span
                       className="hero-word-inner"
-                      style={{ animationDelay: `${0.12 * globalIndex}s` }}
+                      style={{ animationDelay: `${0.1 * (globalIndex + 1)}s` }}
                     >
                       {word}
                     </span>
@@ -122,61 +155,78 @@ export default function Hero() {
           ))}
         </h1>
 
-        {/* Subtitle */}
-        <p
-          className="text-t1 max-w-2xl mx-auto mb-12"
-          style={{ color: "#4B5563" }}
-        >
-          My Community об&apos;єднує продажі, комунікації, задачі, команди, виробництво,
-          фінанси та аналітику в одному зручному просторі.
-          Без хаосу. Без десятків сервісів.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 whitespace-nowrap">
-          <a
-            href="#cta"
-            className="inline-flex items-center justify-center gap-2 text-white text-btn-l rounded-xl px-8 py-4 transition-all duration-200 hover:opacity-90"
-            style={{ background: "#29ABE2" }}
+        {/* Subtitle — Stage 2 */}
+        <div style={{
+          opacity: stage >= 2 ? 1 : 0,
+          transform: stage >= 2 ? "translateY(0)" : "translateY(12px)",
+          transition: "opacity 0.7s ease, transform 0.7s ease",
+        }}>
+          <p
+            className="text-t1 max-w-2xl mx-auto mb-12"
+            style={{ color: "#4B5563" }}
           >
-            Записатися на демо-перегляд
-          </a>
-          <a
-            href="#features"
-            className="inline-flex items-center justify-center gap-2 text-btn-l rounded-xl px-8 py-4 border border-gray-200 transition-all duration-200 hover:bg-gray-50"
-            style={{ color: "#141414" }}
-          >
-            <PlayCircleIcon className="w-5 h-5 text-gray-400" />
-            Переглянути демо
-          </a>
+            My Community об&apos;єднує продажі, комунікації, задачі, команди, виробництво,
+            фінанси та аналітику в одному зручному просторі.
+            Без хаосу. Без десятків сервісів.
+          </p>
         </div>
 
-        {/* Social proof */}
-        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm" style={{ color: "#6B7280" }}>
-          <div className="flex items-center gap-1.5">
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <StarIcon key={i} className="w-4 h-4 text-amber-400" />
-              ))}
+        {/* CTA Buttons + Social proof — Stage 3 */}
+        <div style={{
+          opacity: stage >= 3 ? 1 : 0,
+          transform: stage >= 3 ? "translateY(0)" : "translateY(16px)",
+          transition: "opacity 0.7s ease, transform 0.7s ease",
+        }}>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 whitespace-nowrap">
+            <a
+              href="#cta"
+              className="inline-flex items-center justify-center gap-2 text-white text-btn-l rounded-xl px-8 py-4 transition-all duration-200 hover:opacity-90"
+              style={{ background: "#29ABE2" }}
+            >
+              Записатися на демо-перегляд
+            </a>
+            <a
+              href="#features"
+              className="inline-flex items-center justify-center gap-2 text-btn-l rounded-xl px-8 py-4 border border-gray-200 transition-all duration-200 hover:bg-gray-50"
+              style={{ color: "#141414" }}
+            >
+              <PlayCircleIcon className="w-5 h-5 text-gray-400" />
+              Переглянути демо
+            </a>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm" style={{ color: "#6B7280" }}>
+            <div className="flex items-center gap-1.5">
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <StarIcon key={i} className="w-4 h-4 text-amber-400" />
+                ))}
+              </div>
+              <span className="font-semibold" style={{ color: "#141414" }}>4.9</span>
+              <span>· 200+ відгуків</span>
             </div>
-            <span className="font-semibold" style={{ color: "#141414" }}>4.9</span>
-            <span>· 200+ відгуків</span>
-          </div>
-          <span className="hidden sm:block text-gray-300">|</span>
-          <div className="flex items-center gap-1.5">
-            <span className="font-semibold" style={{ color: "#141414" }}>500+</span>
-            <span>компаній довіряють</span>
-          </div>
-          <span className="hidden sm:block text-gray-300">|</span>
-          <div className="flex items-center gap-1.5">
-            <span className="font-semibold" style={{ color: "#141414" }}>10+</span>
-            <span>років досвіду команди</span>
+            <span className="hidden sm:block text-gray-300">|</span>
+            <div className="flex items-center gap-1.5">
+              <span className="font-semibold" style={{ color: "#141414" }}>500+</span>
+              <span>компаній довіряють</span>
+            </div>
+            <span className="hidden sm:block text-gray-300">|</span>
+            <div className="flex items-center gap-1.5">
+              <span className="font-semibold" style={{ color: "#141414" }}>10+</span>
+              <span>років досвіду команди</span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* ── Mockup with scroll-driven 3D tilt ── */}
-      <div className="max-w-[1080px] mx-auto px-6 lg:px-8" style={{ paddingBottom: 96, isolation: "isolate" }}>
+      {/* ── Mockup — Stage 3 ── */}
+      <div className="max-w-[1080px] mx-auto px-6 lg:px-8" style={{
+        paddingBottom: 96,
+        isolation: "isolate",
+        opacity: stage >= 3 ? 1 : 0,
+        transform: stage >= 3 ? "translateY(0)" : "translateY(20px)",
+        transition: "opacity 0.8s ease, transform 0.8s ease",
+      }}>
         <div
           ref={mockupRef}
           style={{
