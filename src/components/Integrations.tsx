@@ -93,13 +93,13 @@ const row2 = [
 
 function IntegrationCard({ logo, name, description }: { logo: React.ReactNode; name: string; description: string }) {
   return (
-    <div className="flex-shrink-0 flex items-start gap-3 w-64 bg-white border border-gray-100 rounded-2xl p-4 mx-2 shadow-sm">
-      <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center bg-gray-50 border border-gray-100 overflow-hidden p-0.5">
+    <div className="flex-shrink-0 flex items-start gap-4 bg-white border border-gray-100 rounded-2xl mx-2 shadow-sm" style={{ width: 300, padding: 24 }}>
+      <div className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center bg-gray-50 border border-gray-100 overflow-hidden p-1">
         {logo}
       </div>
       <div className="min-w-0">
-        <p className="font-semibold text-gray-900 text-sm leading-tight mb-1">{name}</p>
-        <p className="text-xs text-gray-400 leading-relaxed line-clamp-2">{description}</p>
+        <p className="font-semibold text-gray-900 text-sm leading-tight mb-1.5">{name}</p>
+        <p className="text-xs text-gray-400 leading-relaxed">{description}</p>
       </div>
     </div>
   );
@@ -127,8 +127,8 @@ export default function Integrations() {
       </div>
 
       {/* Row 1 — scrolls left */}
-      <div className="relative mb-4">
-        <div className="flex" style={{ animation: "marqueeLeft 30s linear infinite" }}>
+      <div className="relative mb-4" style={{ maskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)" }}>
+        <div className="flex" style={{ animation: "marqueeLeft 40s linear infinite", willChange: "transform" }}>
           {row1Doubled.map((item, i) => (
             <IntegrationCard key={i} {...item} />
           ))}
@@ -136,8 +136,8 @@ export default function Integrations() {
       </div>
 
       {/* Row 2 — scrolls right */}
-      <div className="relative mb-12">
-        <div className="flex" style={{ animation: "marqueeRight 30s linear infinite" }}>
+      <div className="relative mb-12" style={{ maskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)" }}>
+        <div className="flex" style={{ animation: "marqueeRight 40s linear infinite", willChange: "transform" }}>
           {row2Doubled.map((item, i) => (
             <IntegrationCard key={i} {...item} />
           ))}

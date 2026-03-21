@@ -59,14 +59,14 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Integrations marquee */
+/* Integrations marquee — seamless infinite scroll */
 @keyframes marqueeLeft {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 @keyframes marqueeRight {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
 }
 
 /* Rotating gradient for mockup border + glow */
