@@ -48,14 +48,14 @@ export default function Hero() {
       <div className="max-w-[1080px] mx-auto px-6 lg:px-8 text-center" style={{ paddingTop: 40, paddingBottom: 48 }}>
 
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 text-sm font-medium text-gray-500 bg-gray-100 border border-gray-200">
+        <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-12 text-sm font-medium text-gray-500 bg-gray-100 border border-gray-200">
           <span className="text-base leading-none">🇺🇦</span>
           Українська ERP/CRM система для бізнесу
         </div>
 
         {/* H1 — word-by-word animation */}
         <h1
-          className="mb-6"
+          className="mb-8"
           style={{
             fontSize: "clamp(38px, 5.5vw, 72px)",
             fontWeight: 700,
@@ -86,7 +86,7 @@ export default function Hero() {
 
         {/* Subtitle */}
         <p
-          className="text-t1 max-w-2xl mx-auto mb-10"
+          className="text-t1 max-w-2xl mx-auto mb-12"
           style={{ color: "#4B5563" }}
         >
           My Community об&apos;єднує продажі, комунікації, задачі, команди, виробництво,
@@ -95,7 +95,7 @@ export default function Hero() {
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 whitespace-nowrap">
           <a
             href="#cta"
             className="inline-flex items-center justify-center gap-2 text-white text-btn-l rounded-xl px-8 py-4 transition-all duration-200 hover:opacity-90"

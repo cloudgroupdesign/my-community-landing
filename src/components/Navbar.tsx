@@ -9,7 +9,7 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
@@ -46,7 +46,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <a
               href="#cta"
-              className="text-sm font-semibold text-gray-700 transition-colors px-4 py-2"
+              className="text-sm font-semibold text-gray-700 transition-colors px-4 py-2.5"
               onMouseEnter={e => (e.currentTarget.style.color = "#29ABE2")}
               onMouseLeave={e => (e.currentTarget.style.color = "")}
             >
@@ -54,7 +54,7 @@ export default function Navbar() {
             </a>
             <a
               href="#cta"
-              className="text-white text-sm font-semibold rounded-full px-5 py-2 transition-all duration-200 shadow-sm hover:shadow-md"
+              className="text-white text-sm font-semibold rounded-xl px-6 py-2.5 transition-all duration-200 shadow-sm hover:shadow-md"
               style={{ background: "#29ABE2" }}
               onMouseEnter={e => (e.currentTarget.style.background = "#1A8EC4")}
               onMouseLeave={e => (e.currentTarget.style.background = "#29ABE2")}
