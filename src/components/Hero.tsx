@@ -48,7 +48,7 @@ export default function Hero() {
       <div className="max-w-[1080px] mx-auto px-6 lg:px-8 text-center" style={{ paddingTop: 40, paddingBottom: 48 }}>
 
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-12 text-sm font-medium text-gray-500 bg-gray-100 border border-gray-200">
+        <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 text-sm font-medium text-gray-500 bg-gray-100 border border-gray-200">
           <span className="text-base leading-none">🇺🇦</span>
           Українська ERP/CRM система для бізнесу
         </div>
