@@ -102,7 +102,7 @@ export default function Navbar() {
     <div ref={wrapperRef} className="fixed top-0 left-0 right-0 z-50" style={{ boxShadow: shadow }}>
 
       {/* ── Nav bar ── */}
-      <nav className={`bg-white/90 backdrop-blur-md transition-colors duration-150 ${productsOpen ? "" : "border-b border-gray-100"}`}>
+      <nav className={`bg-white transition-colors duration-150 ${productsOpen ? "" : "border-b border-gray-100"}`}>
         <div className="w-full px-6">
           <div className="flex items-center h-16">
 
@@ -233,7 +233,7 @@ export default function Navbar() {
 
       {/* ── Desktop dropdown panel — sibling of nav, own backdrop-blur context ── */}
       {productsOpen && (
-        <div className="hidden md:block bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div className="hidden md:block bg-white border-b border-gray-100">
           <div className="max-w-[1100px] mx-auto px-6 py-6">
             <div className="flex gap-10">
 

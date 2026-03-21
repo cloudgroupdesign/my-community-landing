@@ -13,9 +13,9 @@ const bullets = [
 ];
 
 export default function FinalCTA() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [name, setName] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,29 +24,38 @@ export default function FinalCTA() {
 
   return (
     <section id="cta" className="py-24 bg-white">
-      {/* Single narrow centered column — fixes off-center issue */}
-      <div className="max-w-xl mx-auto px-6 text-center">
-
+      <div
+        style={{ maxWidth: 560, marginLeft: "auto", marginRight: "auto", paddingLeft: 24, paddingRight: 24 }}
+      >
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 text-sm font-medium text-gray-500 bg-gray-100 border border-gray-200">
-          <span className="text-base leading-none">🇺🇦</span>
-          Підтримуємо український бізнес
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 32 }}>
+          <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium text-gray-500 bg-gray-100 border border-gray-200">
+            <span>🇺🇦</span>
+            Підтримуємо український бізнес
+          </span>
         </div>
 
         {/* Headline */}
-        <h2 className="text-h2 text-gray-900 mb-6">
+        <h2 className="text-h2 text-gray-900 mb-6" style={{ textAlign: "center" }}>
           Ми запрошуємо<br />український бізнес
         </h2>
 
-        <p className="text-t1 text-gray-500 mb-10">
+        {/* Subtitle */}
+        <p className="text-t1 text-gray-500 mb-10" style={{ textAlign: "center" }}>
           Приєднуйтесь до 500+ компаній, які вже управляють бізнесом ефективно з My Community
         </p>
 
         {/* Bullets */}
-        <div className="flex flex-col gap-4 mb-10 text-left">
+        <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 40 }}>
           {bullets.map((bullet, i) => (
-            <div key={i} className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5" style={{ background: "#29ABE2" }}>
+            <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+              <div
+                style={{
+                  flexShrink: 0, width: 20, height: 20, borderRadius: "50%",
+                  background: "#29ABE2", display: "flex", alignItems: "center",
+                  justifyContent: "center", marginTop: 2,
+                }}
+              >
                 <CheckIcon className="w-3 h-3 text-white" />
               </div>
               <span className="text-gray-600 text-sm leading-relaxed">{bullet}</span>
@@ -55,28 +64,40 @@ export default function FinalCTA() {
         </div>
 
         {/* Mission quote */}
-        <div className="border border-gray-200 rounded-2xl px-8 py-6 mb-12 text-left bg-gray-50">
-          <p className="text-gray-600 text-sm leading-relaxed italic">
+        <div
+          className="rounded-2xl bg-gray-50 border border-gray-200"
+          style={{ padding: "24px 32px", marginBottom: 48 }}
+        >
+          <p className="text-gray-600 text-sm leading-relaxed italic mb-4">
             &ldquo;Наша місія — дати українському бізнесу інструмент, який допоможе рости, незважаючи на жодні виклики.&rdquo;
           </p>
-          <div className="flex items-center gap-3 mt-4">
-            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div
+              style={{
+                width: 32, height: 32, borderRadius: "50%", background: "#E5E7EB",
+                display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+              }}
+            >
               <span className="text-gray-600 text-xs font-bold">РК</span>
             </div>
-            <p className="text-gray-500 text-sm">Засновник My Community</p>
+            <span className="text-gray-500 text-sm">Засновник My Community</span>
           </div>
         </div>
 
         {/* Form */}
         {!submitted ? (
-          <>
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 mb-4">
+          <div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 12 }}>
               <input
                 type="text"
                 placeholder="Ваше ім'я"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="flex-1 bg-white border border-gray-200 rounded-xl px-5 py-3.5 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:border-gray-400 transition-all"
+                style={{
+                  width: "100%", background: "#fff", border: "1px solid #E5E7EB",
+                  borderRadius: 12, padding: "14px 20px", fontSize: 14,
+                  color: "#111827", outline: "none", boxSizing: "border-box",
+                }}
               />
               <input
                 type="email"
@@ -84,24 +105,41 @@ export default function FinalCTA() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="flex-1 bg-white border border-gray-200 rounded-xl px-5 py-3.5 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:border-gray-400 transition-all"
+                style={{
+                  width: "100%", background: "#fff", border: "1px solid #E5E7EB",
+                  borderRadius: 12, padding: "14px 20px", fontSize: 14,
+                  color: "#111827", outline: "none", boxSizing: "border-box",
+                }}
               />
               <button
-                type="submit"
-                className="flex-shrink-0 text-white font-bold rounded-xl px-7 py-3.5 text-sm hover:opacity-90 transition-all duration-200 inline-flex items-center gap-2 group"
-                style={{ background: "#29ABE2" }}
+                onClick={handleSubmit}
+                style={{
+                  width: "100%", background: "#29ABE2", color: "#fff",
+                  fontWeight: 700, borderRadius: 12, padding: "14px 20px",
+                  fontSize: 14, border: "none", cursor: "pointer",
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                }}
               >
                 Залишити заявку
-                <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRightIcon className="w-4 h-4" />
               </button>
-            </form>
-            <p className="text-gray-400 text-xs">
+            </div>
+            <p className="text-gray-400 text-xs" style={{ textAlign: "center" }}>
               Натискаючи кнопку, ви погоджуєтесь з умовами обробки персональних даних
             </p>
-          </>
+          </div>
         ) : (
-          <div className="border border-gray-200 rounded-2xl px-8 py-8 bg-gray-50">
-            <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: "#29ABE2" }}>
+          <div
+            className="rounded-2xl bg-gray-50 border border-gray-200"
+            style={{ padding: "32px", textAlign: "center" }}
+          >
+            <div
+              style={{
+                width: 56, height: 56, borderRadius: "50%", background: "#29ABE2",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                margin: "0 auto 16px",
+              }}
+            >
               <CheckIcon className="w-7 h-7 text-white" />
             </div>
             <h3 className="text-gray-900 font-bold text-xl mb-2">Заявку отримано!</h3>
@@ -112,15 +150,21 @@ export default function FinalCTA() {
         )}
 
         {/* Social links */}
-        <div className="flex items-center justify-center gap-4 mt-10">
-          <a href="https://t.me/mycommunity" target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-2 text-gray-500 hover:text-gray-700 text-sm transition-colors">
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginTop: 40 }}>
+          <a
+            href="https://t.me/mycommunity"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-gray-500 hover:text-gray-700 text-sm transition-colors"
+          >
             <Send size={15} />
             Telegram
           </a>
           <span className="text-gray-300">|</span>
-          <a href="tel:+380"
-            className="flex items-center gap-2 text-gray-500 hover:text-gray-700 text-sm transition-colors">
+          <a
+            href="tel:+380"
+            className="flex items-center gap-2 text-gray-500 hover:text-gray-700 text-sm transition-colors"
+          >
             <PhoneIcon className="w-4 h-4" />
             +38 (0XX) XXX-XX-XX
           </a>
