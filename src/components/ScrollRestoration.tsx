@@ -17,29 +17,37 @@ export default function ScrollRestoration() {
     }
 
     const key = `scrollY_${window.location.pathname}`;
+    const navType = (performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined)?.type;
+    const isReload = navType === "reload";
 
     const dispatchRestored = () => {
       window.dispatchEvent(new Event("scroll-restored"));
     };
 
-    // Restore saved position instantly, then reveal + signal Hero
-    const saved = sessionStorage.getItem(key);
-    if (saved !== null) {
-      const y = parseInt(saved, 10);
-      window.scrollTo({ top: y, behavior: "instant" as ScrollBehavior });
-      sessionStorage.removeItem(key);
-      requestAnimationFrame(() => {
+    if (isReload) {
+      // Reload — restore saved position then reveal
+      const saved = sessionStorage.getItem(key);
+      if (saved !== null) {
+        const y = parseInt(saved, 10);
+        window.scrollTo({ top: y, behavior: "instant" as ScrollBehavior });
+        sessionStorage.removeItem(key);
         requestAnimationFrame(() => {
-          document.documentElement.style.transition = "opacity 0.15s ease";
-          document.documentElement.style.opacity = "1";
-          document.documentElement.style.pointerEvents = "";
-          setTimeout(() => {
-            document.documentElement.style.transition = "";
-            dispatchRestored();
-          }, 160);
+          requestAnimationFrame(() => {
+            document.documentElement.style.transition = "opacity 0.15s ease";
+            document.documentElement.style.opacity = "1";
+            document.documentElement.style.pointerEvents = "";
+            setTimeout(() => {
+              document.documentElement.style.transition = "";
+              dispatchRestored();
+            }, 160);
+          });
         });
-      });
+      } else {
+        dispatchRestored();
+      }
     } else {
+      // Navigation between pages — always start at top
+      window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
       dispatchRestored();
     }
 

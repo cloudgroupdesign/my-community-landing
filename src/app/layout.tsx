@@ -31,6 +31,8 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: `
           (function() {
             try {
+              var navType = (performance.getEntriesByType('navigation')[0] || {}).type;
+              if (navType !== 'reload') return;
               var key = 'scrollY_' + window.location.pathname;
               var y = parseInt(sessionStorage.getItem(key) || '0', 10);
               if (y > 10) {

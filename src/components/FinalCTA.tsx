@@ -68,8 +68,8 @@ export default function FinalCTA() {
 
         {/* Form */}
         {!submitted ? (
-          <div>
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto mb-4">
+          <div className="flex flex-col items-center">
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 w-full max-w-lg mb-4">
               <input
                 type="text"
                 placeholder="Ваше ім'я"
@@ -94,7 +94,7 @@ export default function FinalCTA() {
                 <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             </form>
-            <p className="text-gray-400 text-xs">
+            <p className="text-gray-400 text-xs text-center">
               Натискаючи кнопку, ви погоджуєтесь з умовами обробки персональних даних
             </p>
           </div>

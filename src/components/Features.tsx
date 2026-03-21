@@ -1,99 +1,76 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Play, Users, MessageSquare, CheckSquare, Layers, DollarSign } from "lucide-react";
+import { Play } from "lucide-react";
 
 const tabs = [
-  { id: "crm", label: "CRM та продажі", icon: <Users size={15} /> },
-  { id: "omni", label: "Омніканальні комунікації", icon: <MessageSquare size={15} /> },
-  { id: "tasks", label: "Управління задачами", icon: <CheckSquare size={15} /> },
-  { id: "projects", label: "Проєкти та виробництво", icon: <Layers size={15} /> },
-  { id: "hr", label: "HR, фінанси та склад", icon: <DollarSign size={15} /> },
+  {
+    id: "crm",
+    label: "CRM та продажі",
+    color: "#29ABE2",
+    lightBg: "#EFF9FF",
+    fullBg: "#29ABE2",
+    headline: "Управляйте клієнтами та угодами без хаосу",
+    description: "Від першого контакту до закритої угоди — вся воронка продажів в одному місці.",
+    tags: ["Воронка продажів", "Картки клієнтів", "Автонагадування", "KPI та аналітика", "Телефонія та пошта"],
+  },
+  {
+    id: "omni",
+    label: "Омніканальні комунікації",
+    color: "#8B5CF6",
+    lightBg: "#F5F3FF",
+    fullBg: "#8B5CF6",
+    headline: "Всі повідомлення в одному вікні",
+    description: "Telegram, Instagram, Email, SMS, Viber — жодне повідомлення не загубиться.",
+    tags: ["Єдина inbox", "Чат-боти", "Масові розсилки", "Шаблони", "Аналітика"],
+  },
+  {
+    id: "tasks",
+    label: "Управління задачами",
+    color: "#10B981",
+    lightBg: "#ECFDF5",
+    fullBg: "#10B981",
+    headline: "Команда завжди знає що і коли робити",
+    description: "Kanban-дошки, дедлайни, відповідальні — повний контроль над задачами.",
+    tags: ["Kanban-дошки", "Підзадачі", "Таймтрекінг", "Нагадування", "Звіти"],
+  },
+  {
+    id: "projects",
+    label: "Проєкти та виробництво",
+    color: "#F59E0B",
+    lightBg: "#FFFBEB",
+    fullBg: "#F59E0B",
+    headline: "Повний цикл від планування до результату",
+    description: "Управляйте проєктами та виробничими процесами без зайвих інструментів.",
+    tags: ["Діаграми Ганта", "Ресурси", "Бюджет", "Виробничі замовлення", "Milestone"],
+  },
+  {
+    id: "hr",
+    label: "HR, фінанси та склад",
+    color: "#EF4444",
+    lightBg: "#FFF5F5",
+    fullBg: "#EF4444",
+    headline: "Команда, гроші та склад — все під контролем",
+    description: "Автоматизуйте HR-процеси, фінансовий облік та управління складом.",
+    tags: ["Штатний розклад", "Відпустки", "Фінзвіти", "Облік товарів", "Зарплата"],
+  },
 ];
 
-const tabContent: Record<string, { features: string[]; description: string }> = {
-  crm: {
-    description: "Управляйте угодами, контактами та воронкою продажів в одному місці. Від першого дотику до закритої угоди — без втрат.",
-    features: [
-      "Воронка продажів з drag-and-drop",
-      "Картки клієнтів з повною історією",
-      "Автоматичні нагадування та follow-up",
-      "Прогнозування доходів та KPI",
-      "Інтеграція з телефонією та поштою",
-      "Аналітика ефективності менеджерів",
-    ],
-  },
-  omni: {
-    description: "Всі канали комунікації в єдиному вікні: Telegram, Instagram, Email, SMS, Viber — ніколи не пропускайте повідомлення.",
-    features: [
-      "Єдина inbox для всіх каналів",
-      "Чат-боти та автовідповіді",
-      "Масові розсилки та кампанії",
-      "Шаблони повідомлень",
-      "Сегментація аудиторії",
-      "Аналітика відкриттів та кліків",
-    ],
-  },
-  tasks: {
-    description: "Ставте задачі, встановлюйте дедлайни, контролюйте виконання. Ваша команда завжди знає що і коли потрібно зробити.",
-    features: [
-      "Kanban-дошки та списки задач",
-      "Підзадачі та залежності",
-      "Таймтрекінг та звіти",
-      "Призначення відповідальних",
-      "Нагадування та дедлайни",
-      "Інтеграція з проєктами",
-    ],
-  },
-  projects: {
-    description: "Від планування до виробництва — повний цикл управління проєктами та виробничими процесами у вашому бізнесі.",
-    features: [
-      "Діаграми Ганта та дорожні карти",
-      "Управління ресурсами",
-      "Контроль бюджету проєктів",
-      "Виробничі замовлення",
-      "Облік матеріалів та ресурсів",
-      "Milestone та звітність",
-    ],
-  },
-  hr: {
-    description: "Управляйте командою, фінансами та складом ефективно. Автоматизуйте HR-процеси та отримуйте повний контроль над активами.",
-    features: [
-      "База співробітників та оргструктура",
-      "Управління відпустками та графіком",
-      "Рахунки, платежі та фінзвіти",
-      "Облік товарів та залишків",
-      "Складські операції",
-      "Нарахування заробітньої плати",
-    ],
-  },
-};
-
-
-function VideoPlaceholder({ label }: { label: string }) {
-  return (
-    <div
-      className="relative rounded-2xl aspect-video flex items-center justify-center bg-gray-50 border border-gray-200"
-    >
-      <div className="flex flex-col items-center gap-4">
-        <button className="w-16 h-16 rounded-full bg-white border border-gray-200 flex items-center justify-center transition-colors hover:bg-gray-100">
-          <Play size={22} className="text-gray-700 fill-gray-700 ml-1" />
-        </button>
-        <p className="text-gray-400 text-sm font-medium">{label}</p>
-      </div>
-    </div>
-  );
+function openDemoModal() {
+  window.dispatchEvent(new CustomEvent("open-demo-modal"));
 }
 
 export default function Features() {
-  const [activeTab, setActiveTab] = useState("crm");
-  const content = tabContent[activeTab];
+  const [activeId, setActiveId] = useState("crm");
+  const [hoverId, setHoverId] = useState<string | null>(null);
+  const tab = tabs.find((t) => t.id === activeId)!;
 
   return (
     <section id="features" className="py-24 bg-white">
       <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Header */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-12">
           <p className="text-sky-500 font-semibold text-sm uppercase tracking-widest mb-3">
             Можливості
           </p>
@@ -105,59 +82,100 @@ export default function Features() {
           </p>
         </div>
 
-        {/* Tab navigation */}
-        <div className="flex overflow-x-auto gap-1 bg-white border border-gray-100 rounded-2xl p-1.5 mb-10">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 whitespace-nowrap px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 flex-1 min-w-fit justify-center ${
-                activeTab === tab.id
-                  ? "bg-sky-500 text-white"
-                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-              }`}
-            >
-              <span className={activeTab === tab.id ? "text-white" : "text-gray-400"}>{tab.icon}</span>
-              {tab.label}
-            </button>
-          ))}
+        {/* Text tab bar — centered, no full-width border line */}
+        <div className="flex items-end justify-center gap-0 mb-8 overflow-x-auto scrollbar-none">
+          {tabs.map((t) => {
+            const isActive = t.id === activeId;
+            return (
+              <button
+                key={t.id}
+                onClick={() => setActiveId(t.id)}
+                className="relative flex-none px-5 py-3 text-sm font-medium whitespace-nowrap transition-colors duration-200"
+                style={{ color: (isActive || hoverId === t.id) ? t.color : "#6B7280" }}
+                onMouseEnter={() => setHoverId(t.id)}
+                onMouseLeave={() => setHoverId(null)}
+              >
+                {t.label}
+                {/* Underline: visible only under active or hovered tab */}
+                <span
+                  className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full transition-opacity duration-150"
+                  style={{
+                    background: t.color,
+                    opacity: (isActive || hoverId === t.id) ? 1 : 0,
+                  }}
+                />
+              </button>
+            );
+          })}
         </div>
 
-        {/* Tab content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          {/* Left: Kanban mockup (CRM) or Video placeholder (others) */}
-          <div>
-            <VideoPlaceholder label={`Демо: ${tabs.find((t) => t.id === activeTab)?.label}`} />
-          </div>
+        {/* Two-column card — fixed height so it never jumps between tabs */}
+        <div className="rounded-3xl overflow-hidden flex flex-col lg:flex-row lg:h-[460px]">
 
-          {/* Right: Features list */}
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                {tabs.find((t) => t.id === activeTab)?.label}
+          {/* Left panel — light bg, text content */}
+          <div
+            className="flex flex-col justify-between p-8 lg:p-10 lg:w-[38%] lg:h-full"
+            style={{ background: tab.lightBg }}
+          >
+            <div className="space-y-5">
+              {/* Label */}
+              <p
+                className="text-[11px] font-bold uppercase tracking-widest"
+                style={{ color: tab.color }}
+              >
+                {tab.label}
+              </p>
+
+              {/* Headline */}
+              <h3 className="text-2xl font-bold text-gray-900 leading-snug">
+                {tab.headline}
               </h3>
-              <p className="text-gray-500 leading-relaxed">{content.description}</p>
+
+              {/* Description */}
+              <p className="text-gray-500 text-sm leading-relaxed">
+                {tab.description}
+              </p>
+
+              {/* CTA button */}
+              <button
+                onClick={openDemoModal}
+                className="inline-flex items-center gap-2 bg-gray-900 hover:bg-gray-700 text-white text-sm font-semibold rounded-xl px-6 py-3 transition-all duration-200"
+              >
+                Спробувати безкоштовно
+              </button>
             </div>
 
-            <ul className="space-y-3">
-              {content.features.map((feature, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-sky-100 flex items-center justify-center mt-0.5">
-                    <Check size={12} className="text-sky-500 font-bold" strokeWidth={3} />
-                  </div>
-                  <span className="text-gray-700 text-sm font-medium">{feature}</span>
-                </li>
+            {/* Feature tags */}
+            <div className="flex flex-wrap gap-2 mt-8">
+              {tab.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs font-medium px-3 py-1.5 rounded-lg bg-white/70 text-gray-600 border border-white"
+                >
+                  {tag}
+                </span>
               ))}
-            </ul>
+            </div>
+          </div>
 
-            <a
-              href="#cta"
-              className="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-xl px-6 py-3 text-sm transition-all duration-200 mt-2"
-            >
-              Спробувати безкоштовно
-            </a>
+          {/* Right panel — full color bg, video */}
+          <div
+            className="flex-1 flex items-center justify-center p-8 lg:p-10 min-h-[280px] lg:h-full"
+            style={{ background: tab.fullBg }}
+          >
+            <div className="w-full max-w-[520px] rounded-2xl overflow-hidden aspect-video bg-white/10 border border-white/20 flex items-center justify-center">
+              <div className="flex flex-col items-center gap-4">
+                <button className="w-16 h-16 rounded-full bg-white/20 hover:bg-white/30 border border-white/40 flex items-center justify-center transition-all duration-200 hover:scale-105">
+                  <Play size={22} className="text-white fill-white ml-1" />
+                </button>
+                <p className="text-white/70 text-sm font-medium">
+                  Демо: {tab.label}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
     </section>
   );

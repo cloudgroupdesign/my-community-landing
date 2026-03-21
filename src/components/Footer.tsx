@@ -38,8 +38,9 @@ export default function Footer() {
               <ul className="space-y-3">
                 {[
                   { label: "Можливості", href: "#features" },
+                  { label: "Ціни", href: "/pricing" },
+                  { label: "Відгуки", href: "/reviews" },
                   { label: "Інтеграції", href: "/integrations" },
-                  { label: "Ціни", href: "#" },
                   { label: "Безпека", href: "#" },
                 ].map(({ label, href }) => (
                   <li key={label}>
