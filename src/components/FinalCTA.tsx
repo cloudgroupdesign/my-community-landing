@@ -24,7 +24,8 @@ export default function FinalCTA() {
 
   return (
     <section id="cta" className="py-24 bg-white">
-      <div className="max-w-[1080px] mx-auto px-6 lg:px-8 text-center">
+      {/* Single narrow centered column — fixes off-center issue */}
+      <div className="max-w-xl mx-auto px-6 text-center">
 
         {/* Badge */}
         <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 text-sm font-medium text-gray-500 bg-gray-100 border border-gray-200">
@@ -37,12 +38,12 @@ export default function FinalCTA() {
           Ми запрошуємо<br />український бізнес
         </h2>
 
-        <p className="text-t1 text-gray-500 max-w-xl mx-auto mb-10">
+        <p className="text-t1 text-gray-500 mb-10">
           Приєднуйтесь до 500+ компаній, які вже управляють бізнесом ефективно з My Community
         </p>
 
         {/* Bullets */}
-        <div className="flex flex-col items-center gap-4 mb-10 max-w-md mx-auto text-left">
+        <div className="flex flex-col gap-4 mb-10 text-left">
           {bullets.map((bullet, i) => (
             <div key={i} className="flex items-start gap-3">
               <div className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5" style={{ background: "#29ABE2" }}>
@@ -54,7 +55,7 @@ export default function FinalCTA() {
         </div>
 
         {/* Mission quote */}
-        <div className="border border-gray-200 rounded-2xl px-8 py-6 mb-12 max-w-xl mx-auto text-left bg-gray-50">
+        <div className="border border-gray-200 rounded-2xl px-8 py-6 mb-12 text-left bg-gray-50">
           <p className="text-gray-600 text-sm leading-relaxed italic">
             &ldquo;Наша місія — дати українському бізнесу інструмент, який допоможе рости, незважаючи на жодні виклики.&rdquo;
           </p>
@@ -68,8 +69,8 @@ export default function FinalCTA() {
 
         {/* Form */}
         {!submitted ? (
-          <div className="flex flex-col items-center">
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 w-full max-w-lg mb-4">
+          <>
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 mb-4">
               <input
                 type="text"
                 placeholder="Ваше ім'я"
@@ -94,12 +95,12 @@ export default function FinalCTA() {
                 <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             </form>
-            <p className="text-gray-400 text-xs text-center">
+            <p className="text-gray-400 text-xs">
               Натискаючи кнопку, ви погоджуєтесь з умовами обробки персональних даних
             </p>
-          </div>
+          </>
         ) : (
-          <div className="border border-gray-200 rounded-2xl px-8 py-8 max-w-md mx-auto bg-gray-50">
+          <div className="border border-gray-200 rounded-2xl px-8 py-8 bg-gray-50">
             <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: "#29ABE2" }}>
               <CheckIcon className="w-7 h-7 text-white" />
             </div>

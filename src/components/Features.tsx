@@ -82,26 +82,31 @@ export default function Features() {
           </p>
         </div>
 
-        {/* Text tab bar — centered, no full-width border line */}
+        {/* Text tab bar — centered, underline only under text width with gap */}
         <div className="flex items-end justify-center gap-0 mb-8 overflow-x-auto scrollbar-none">
           {tabs.map((t) => {
             const isActive = t.id === activeId;
+            const isHovered = hoverId === t.id;
             return (
               <button
                 key={t.id}
                 onClick={() => setActiveId(t.id)}
-                className="relative flex-none px-5 py-3 text-sm font-medium whitespace-nowrap transition-colors duration-200"
-                style={{ color: (isActive || hoverId === t.id) ? t.color : "#6B7280" }}
+                className="relative flex-none px-5 pb-3 pt-3 text-sm font-medium whitespace-nowrap transition-colors duration-200"
+                style={{ color: isActive ? t.color : "#6B7280" }}
                 onMouseEnter={() => setHoverId(t.id)}
                 onMouseLeave={() => setHoverId(null)}
               >
                 {t.label}
-                {/* Underline: visible only under active or hovered tab */}
+                {/* Underline — width of text only, 4px gap on each side, never touches neighbour */}
                 <span
-                  className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full transition-opacity duration-150"
+                  className="absolute bottom-0 rounded-full transition-all duration-150"
                   style={{
-                    background: t.color,
-                    opacity: (isActive || hoverId === t.id) ? 1 : 0,
+                    /* px-5 = 20px padding, line extends 4px outside text = 20px - 4px = 16px from edge */
+                    left: "16px",
+                    right: "16px",
+                    height: "2px",
+                    background: isActive ? t.color : "#9CA3AF",
+                    opacity: (isActive || isHovered) ? 1 : 0,
                   }}
                 />
               </button>
