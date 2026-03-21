@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ScrollRestoration from "@/components/ScrollRestoration";
-import DemoModal from "@/components/DemoModal";
+import ModalProvider from "@/components/ModalProvider";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -45,7 +45,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col font-sans">
         <ScrollRestoration />
-        <DemoModal />
+        <ModalProvider />
         {children}
       </body>
     </html>

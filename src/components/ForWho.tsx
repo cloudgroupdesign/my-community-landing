@@ -1,5 +1,3 @@
-"use client";
-
 import { ArrowRight } from "lucide-react";
 import {
   BriefcaseIcon,
@@ -53,13 +51,11 @@ export default function ForWho() {
           {audiences.map((item, i) => (
             <div
               key={i}
-              className="group bg-white rounded-2xl border border-gray-100 transition-all duration-300 p-8"
-              onMouseEnter={e => (e.currentTarget.style.borderColor = "#BAE6FD")}
-              onMouseLeave={e => (e.currentTarget.style.borderColor = "")}
+              className="bg-white rounded-2xl border border-gray-100 hover:border-sky-200 transition-colors duration-300 p-8"
             >
               <div className="flex items-start gap-5">
                 <div
-                  className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center transition-colors"
+                  className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center"
                   style={{ background: "#E0F2FE", border: "1px solid #BAE6FD" }}
                 >
                   {item.icon}
@@ -90,10 +86,8 @@ export default function ForWho() {
           </p>
           <a
             href="#cta"
-            className="inline-flex items-center gap-2 text-white font-semibold rounded-xl px-8 py-4 text-base transition-all duration-200 group"
+            className="inline-flex items-center gap-2 text-white font-semibold rounded-xl px-8 py-4 text-base transition-all duration-200 hover:opacity-90 group"
             style={{ background: "#29ABE2" }}
-            onMouseEnter={e => { e.currentTarget.style.background = "#1A8EC4"; e.currentTarget.style.boxShadow = "0 20px 40px rgba(41,171,226,0.3)"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "#29ABE2"; e.currentTarget.style.boxShadow = ""; }}
           >
             Отримати демо-презентацію
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />

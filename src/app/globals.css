@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -59,19 +58,6 @@
 html.js-smooth-scroll {
   scroll-behavior: smooth;
 }
-
-/* Integrations marquee — seamless infinite scroll */
-@keyframes marqueeLeft {
-  0%   { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
-}
-@keyframes marqueeRight {
-  0%   { transform: translate3d(-50%, 0, 0); }
-  100% { transform: translate3d(0, 0, 0); }
-}
-
-/* Pause marquee when section is hidden (IntersectionObserver adds class) */
-.marquee-paused { animation-play-state: paused !important; }
 
 /* Rotating gradient for mockup border + glow — GPU only */
 @keyframes gradientSpin {

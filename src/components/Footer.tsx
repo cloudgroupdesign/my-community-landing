@@ -1,7 +1,6 @@
-"use client";
-
 import { Send, Instagram, Phone } from "lucide-react";
 import Image from "next/image";
+import DemoButton from "@/components/DemoButton";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -101,13 +100,12 @@ export default function Footer() {
               </div>
             </div>
 
-            <button
-              onClick={() => window.dispatchEvent(new CustomEvent("open-demo-modal"))}
+            <DemoButton
               className="inline-flex items-center gap-2 text-white font-semibold text-sm rounded-lg px-5 py-2.5 transition-all mt-2 hover:opacity-90"
               style={{ background: "#29ABE2" }}
             >
               Замовити демо
-            </button>
+            </DemoButton>
           </div>
         </div>
       </div>
