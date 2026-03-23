@@ -115,7 +115,7 @@ export default function Features() {
         </div>
 
         {/* Two-column card — fixed height so it never jumps between tabs */}
-        <div className="rounded-3xl overflow-hidden flex flex-col lg:flex-row lg:h-[460px]">
+        <div className="rounded-xl overflow-hidden flex flex-col lg:flex-row lg:h-[460px]">
 
           {/* Left panel — light bg, text content */}
           <div
