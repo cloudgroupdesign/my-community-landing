@@ -2,107 +2,53 @@
 
 import { useState } from "react";
 import { Play } from "lucide-react";
-
-const tabs = [
-  {
-    id: "crm",
-    label: "CRM та продажі",
-    color: "#29ABE2",
-    lightBg: "#EFF9FF",
-    fullBg: "#29ABE2",
-    headline: "Управляйте клієнтами та угодами без хаосу",
-    description: "Від першого контакту до закритої угоди — вся воронка продажів в одному місці.",
-    tags: ["Воронка продажів", "Картки клієнтів", "Автонагадування", "KPI та аналітика", "Телефонія та пошта"],
-  },
-  {
-    id: "omni",
-    label: "Омніканальні комунікації",
-    color: "#8B5CF6",
-    lightBg: "#F5F3FF",
-    fullBg: "#8B5CF6",
-    headline: "Всі повідомлення в одному вікні",
-    description: "Telegram, Instagram, Email, SMS, Viber — жодне повідомлення не загубиться.",
-    tags: ["Єдина inbox", "Чат-боти", "Масові розсилки", "Шаблони", "Аналітика"],
-  },
-  {
-    id: "tasks",
-    label: "Управління задачами",
-    color: "#10B981",
-    lightBg: "#ECFDF5",
-    fullBg: "#10B981",
-    headline: "Команда завжди знає що і коли робити",
-    description: "Kanban-дошки, дедлайни, відповідальні — повний контроль над задачами.",
-    tags: ["Kanban-дошки", "Підзадачі", "Таймтрекінг", "Нагадування", "Звіти"],
-  },
-  {
-    id: "projects",
-    label: "Проєкти та виробництво",
-    color: "#F59E0B",
-    lightBg: "#FFFBEB",
-    fullBg: "#F59E0B",
-    headline: "Повний цикл від планування до результату",
-    description: "Управляйте проєктами та виробничими процесами без зайвих інструментів.",
-    tags: ["Діаграми Ганта", "Ресурси", "Бюджет", "Виробничі замовлення", "Milestone"],
-  },
-  {
-    id: "hr",
-    label: "HR, фінанси та склад",
-    color: "#EF4444",
-    lightBg: "#FFF5F5",
-    fullBg: "#EF4444",
-    headline: "Команда, гроші та склад — все під контролем",
-    description: "Автоматизуйте HR-процеси, фінансовий облік та управління складом.",
-    tags: ["Штатний розклад", "Відпустки", "Фінзвіти", "Облік товарів", "Зарплата"],
-  },
-];
+import { useLang } from "@/lib/lang";
+import { i18n } from "@/lib/i18n";
 
 function openDemoModal() {
   window.dispatchEvent(new CustomEvent("open-demo-modal"));
 }
 
 export default function Features() {
+  const { lang } = useLang();
+  const t = i18n[lang].features;
+  const tabs = t.tabs as typeof i18n.ua.features.tabs;
+
   const [activeId, setActiveId] = useState("crm");
   const [hoverId, setHoverId] = useState<string | null>(null);
-  const tab = tabs.find((t) => t.id === activeId)!;
+  const tab = tabs.find((t) => t.id === activeId) ?? tabs[0];
 
   return (
     <section id="features" className="py-24 bg-white">
       <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Header */}
         <div className="text-center mb-12">
-<h2 className="text-h2 text-gray-900 mb-6">
-            Можливості My Community
-          </h2>
-          <p className="text-t2 text-gray-500 max-w-2xl mx-auto">
-            Все що потрібно для ефективного бізнесу — в одному продукті
-          </p>
+          <p className="text-[13px] font-medium text-gray-500 uppercase tracking-wide mb-5">{t.eyebrow}</p>
+          <h2 className="text-h2 text-gray-900 mb-6">{t.title}</h2>
+          <p className="text-t2 text-gray-500 max-w-2xl mx-auto">{t.subtitle}</p>
         </div>
 
-        {/* Text tab bar — centered, underline only under text width with gap */}
         <div className="flex items-end justify-center gap-0 mb-8 overflow-x-auto scrollbar-none">
-          {tabs.map((t) => {
-            const isActive = t.id === activeId;
-            const isHovered = hoverId === t.id;
+          {tabs.map((tab) => {
+            const isActive = tab.id === activeId;
+            const isHovered = hoverId === tab.id;
             return (
               <button
-                key={t.id}
-                onClick={() => setActiveId(t.id)}
+                key={tab.id}
+                onClick={() => setActiveId(tab.id)}
                 className="relative flex-none px-5 pb-3 pt-3 text-sm font-medium whitespace-nowrap transition-colors duration-200"
-                style={{ color: isActive ? t.color : "#6B7280" }}
-                onMouseEnter={() => setHoverId(t.id)}
+                style={{ color: isActive ? tab.color : "#6B7280" }}
+                onMouseEnter={() => setHoverId(tab.id)}
                 onMouseLeave={() => setHoverId(null)}
               >
-                {t.label}
-                {/* Underline — width of text only, 4px gap on each side, never touches neighbour */}
+                {tab.label}
                 <span
                   className="absolute bottom-0 rounded-full transition-all duration-150"
                   style={{
-                    /* px-5 = 20px padding, line extends 4px outside text = 20px - 4px = 16px from edge */
                     left: "16px",
                     right: "16px",
                     height: "2px",
-                    background: isActive ? t.color : "#9CA3AF",
+                    background: isActive ? tab.color : "#9CA3AF",
                     opacity: (isActive || isHovered) ? 1 : 0,
                   }}
                 />
@@ -111,36 +57,22 @@ export default function Features() {
           })}
         </div>
 
-        {/* Two-column card — fixed height so it never jumps between tabs */}
         <div className="rounded-xl overflow-hidden flex flex-col lg:flex-row lg:h-[460px]">
 
-          {/* Left panel — light bg, text content */}
           <div
             className="flex flex-col justify-between p-8 lg:p-10 lg:w-[38%] lg:h-full"
             style={{ background: tab.lightBg }}
           >
             <div className="space-y-5">
-
-              {/* Headline */}
-              <h3 className="text-2xl font-bold text-gray-900 leading-snug">
-                {tab.headline}
-              </h3>
-
-              {/* Description */}
-              <p className="text-gray-500 text-sm leading-relaxed">
-                {tab.description}
-              </p>
-
-              {/* CTA button */}
+              <h3 className="text-2xl font-bold text-gray-900 leading-snug">{tab.headline}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed">{tab.description}</p>
               <button
                 onClick={openDemoModal}
                 className="inline-flex items-center gap-2 bg-gray-900 hover:bg-gray-700 text-white text-sm font-semibold rounded-xl px-6 py-3 transition-all duration-200"
               >
-                Спробувати безкоштовно
+                {t.tryFree}
               </button>
             </div>
-
-            {/* Feature tags */}
             <div className="flex flex-wrap gap-2 mt-8">
               {tab.tags.map((tag) => (
                 <span
@@ -153,7 +85,6 @@ export default function Features() {
             </div>
           </div>
 
-          {/* Right panel — full color bg, video */}
           <div
             className="flex-1 flex items-center justify-center p-8 lg:p-10 min-h-[280px] lg:h-full"
             style={{ background: tab.fullBg }}
@@ -164,7 +95,7 @@ export default function Features() {
                   <Play size={22} className="text-white fill-white ml-1" />
                 </button>
                 <p className="text-white/70 text-sm font-medium">
-                  Демо: {tab.label}
+                  {t.demoPrefix}{tab.label}
                 </p>
               </div>
             </div>

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import ScrollRestoration from "@/components/ScrollRestoration";
 import ModalProvider from "@/components/ModalProvider";
+import { LangProvider } from "@/lib/lang";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -16,6 +17,10 @@ export const metadata: Metadata = {
   description:
     "Сучасна ERP/CRM платформа для українського бізнесу. Автоматизуйте процеси, збільшуйте продажі та управляйте командою в одній системі.",
   keywords: "ERP, CRM, SaaS, Україна, бізнес, автоматизація",
+  icons: {
+    icon: "/logo-icon.png",
+    apple: "/logo-icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -44,9 +49,11 @@ export default function RootLayout({
         ` }} />
       </head>
       <body className="min-h-full flex flex-col font-sans">
-        <ScrollRestoration />
-        <ModalProvider />
-        {children}
+        <LangProvider>
+          <ScrollRestoration />
+          <ModalProvider />
+          {children}
+        </LangProvider>
       </body>
     </html>
   );

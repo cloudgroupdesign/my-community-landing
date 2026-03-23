@@ -1,63 +1,39 @@
-import { Shuffle, UserX, BarChart2, Cpu, Link, Zap } from "lucide-react";
+"use client";
 
-const problems = [
-  {
-    icon: <Shuffle size={28} className="text-sky-500" />,
-    title: "Хаос у процесах",
-    description:
-      "Завдання губляться, відповідальні не зрозумілі, терміни зриваються. Менеджери витрачають більше часу на контроль, ніж на роботу.",
-  },
-  {
-    icon: <UserX size={28} className="text-rose-500" />,
-    title: "Втрата клієнтів",
-    description:
-      "Без CRM угоди зникають між переписками. Клієнти йдуть до конкурентів, бо ніхто не встиг зреагувати вчасно.",
-  },
-  {
-    icon: <BarChart2 size={28} className="text-amber-500" />,
-    title: "Відсутність аналітики",
-    description:
-      "Рішення приймаються на відчуттях, а не на даних. Немає чіткого розуміння, що працює, а що тягне бізнес вниз.",
-  },
-  {
-    icon: <Cpu size={28} className="text-blue-500" />,
-    title: "Перевантаження операційкою",
-    description:
-      "Рутинні задачі з'їдають час команди: ручні звіти, нагадування вручну, копіювання даних між системами.",
-  },
-  {
-    icon: <Link size={28} className="text-emerald-500" />,
-    title: "Залежність від сервісів",
-    description:
-      "CRM тут, задачі там, комунікація в третьому місці. Інтеграції ламаються, дані не синхронізуються, команда плутається.",
-  },
-  {
-    icon: <Zap size={28} className="text-violet-500" />,
-    title: "Відсутність автоматизації",
-    description:
-      "Без автоматизації команда щодня повторює одні й ті самі кроки вручну. Бізнес не росте — він просто виживає.",
-  },
+import { Shuffle, UserX, BarChart2, Cpu, Link, Zap } from "lucide-react";
+import { useLang } from "@/lib/lang";
+import { i18n } from "@/lib/i18n";
+
+const problemIcons = [
+  <Shuffle key="shuffle" size={28} className="text-sky-500" />,
+  <UserX key="userx" size={28} className="text-rose-500" />,
+  <BarChart2 key="bar" size={28} className="text-amber-500" />,
+  <Cpu key="cpu" size={28} className="text-blue-500" />,
+  <Link key="link" size={28} className="text-emerald-500" />,
+  <Zap key="zap" size={28} className="text-violet-500" />,
 ];
 
 export default function PainPoints() {
-  const row1 = problems.slice(0, 3);
-  const row2 = problems.slice(3, 6);
+  const { lang } = useLang();
+  const t = i18n[lang].painPoints;
+
+  const row1 = t.problems.slice(0, 3);
+  const row2 = t.problems.slice(3, 6);
 
   return (
     <section id="problems" className="py-24 bg-white">
       <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Header — centered */}
         <div className="mb-16 text-center">
-<h2
+          <p className="text-[13px] font-medium text-gray-500 uppercase tracking-wide mb-5">{t.eyebrow}</p>
+          <h2
             className="text-gray-900 font-bold leading-tight"
             style={{ fontSize: "46px", letterSpacing: "-0.02em" }}
           >
-            Які задачі вирішує система
+            {t.title}
           </h2>
         </div>
 
-        {/* Grid — 2 rows × 3 cols with dividers */}
         <div className="border border-gray-200 rounded-xl overflow-hidden">
           {[row1, row2].map((row, rowIdx) => (
             <div
@@ -66,20 +42,14 @@ export default function PainPoints() {
             >
               {row.map((item, i) => (
                 <div key={i} className="flex flex-col">
-                  {/* Visual placeholder */}
                   <div className="h-48 bg-gray-50 flex items-center justify-center border-b border-gray-200">
                     <div className="w-14 h-14 rounded-2xl bg-white border border-gray-100 shadow-sm flex items-center justify-center">
-                      {item.icon}
+                      {problemIcons[rowIdx * 3 + i]}
                     </div>
                   </div>
-                  {/* Text */}
                   <div className="p-7">
-                    <h3 className="font-bold text-gray-900 mb-2 text-base leading-snug">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-500 text-sm leading-relaxed">
-                      {item.description}
-                    </p>
+                    <h3 className="font-bold text-gray-900 mb-2 text-base leading-snug">{item.title}</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               ))}

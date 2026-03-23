@@ -3,7 +3,8 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 
 // Below-fold sections — lazy loaded after LCP
-const Story        = dynamic(() => import("@/components/Story"),        { ssr: true });
+const WhoWeAre     = dynamic(() => import("@/components/WhoWeAre"),     { ssr: true });
+const WhyCreated   = dynamic(() => import("@/components/WhyCreated"),   { ssr: true });
 const PainPoints   = dynamic(() => import("@/components/PainPoints"),   { ssr: true });
 const Features     = dynamic(() => import("@/components/Features"),     { ssr: true });
 const Integrations = dynamic(() => import("@/components/Integrations"), { ssr: true });
@@ -17,7 +18,8 @@ export default function Home() {
     <main className="flex flex-col w-full">
       <Navbar />
       <Hero />
-      <Story />
+      <WhoWeAre />
+      <WhyCreated />
       <PainPoints />
       <Features />
       <Integrations />

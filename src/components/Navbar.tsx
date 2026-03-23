@@ -11,75 +11,48 @@ import {
   ArchiveBoxIcon,
   UserGroupIcon,
 } from "@heroicons/react/24/outline";
+import { useLang } from "@/lib/lang";
+import { i18n } from "@/lib/i18n";
+
+const productIcons = [UsersIcon, WrenchScrewdriverIcon, ClipboardDocumentListIcon, ArchiveBoxIcon, UserGroupIcon];
+const productColors = ["#29ABE2", "#F59E0B", "#8B5CF6", "#10B981", "#EF4444"];
+const productBgs = ["#E0F5FD", "#FEF3C7", "#EDE9FE", "#D1FAE5", "#FEE2E2"];
 
 function openDemoModal() {
   window.dispatchEvent(new CustomEvent("open-demo-modal"));
 }
 
-const products = [
-  {
-    icon: UsersIcon,
-    color: "#29ABE2",
-    bg: "#E0F5FD",
-    name: "CRM та продажі",
-    description: "Воронка, картки клієнтів, аналітика угод",
-    href: "#",
-  },
-  {
-    icon: WrenchScrewdriverIcon,
-    color: "#F59E0B",
-    bg: "#FEF3C7",
-    name: "Виробництво",
-    description: "Планування процесів, замовлення, контроль якості",
-    href: "#",
-  },
-  {
-    icon: ClipboardDocumentListIcon,
-    color: "#8B5CF6",
-    bg: "#EDE9FE",
-    name: "Проєкти та задачі",
-    description: "Канбан-дошки, терміни, виконавці",
-    href: "#",
-  },
-  {
-    icon: ArchiveBoxIcon,
-    color: "#10B981",
-    bg: "#D1FAE5",
-    name: "Склад",
-    description: "Облік залишків, рух товарів, інвентаризація",
-    href: "#",
-  },
-  {
-    icon: UserGroupIcon,
-    color: "#EF4444",
-    bg: "#FEE2E2",
-    name: "HR процеси",
-    description: "Штатний розклад, відпустки, зарплата",
-    href: "#",
-  },
-];
-
-const pages = [
-  { label: "Ціни", href: "/pricing" },
-  { label: "Відгуки", href: "/reviews" },
-  { label: "Інтеграції", href: "/integrations" },
-];
-
 export default function Navbar() {
+  const { lang } = useLang();
+  const t = i18n[lang].nav;
+
+  const products = t.items.map((item, i) => ({
+    icon: productIcons[i],
+    color: productColors[i],
+    bg: productBgs[i],
+    name: item.name,
+    description: item.description,
+    href: "#",
+  }));
+
+  const pages = [
+    { label: t.pricing, href: "/pricing" },
+    { label: t.reviews, href: "/reviews" },
+    { label: t.integrations, href: "/integrations" },
+  ];
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  // Shadow on scroll
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
@@ -90,7 +63,6 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  // Close dropdown on route change
   useEffect(() => {
     setProductsOpen(false);
   }, [pathname]);
@@ -98,15 +70,12 @@ export default function Navbar() {
   const shadow = (scrolled || productsOpen) ? "0 2px 20px rgba(0,0,0,0.08)" : "none";
 
   return (
-    /* Outer wrapper — fixed, holds nav bar + dropdown as siblings */
     <div ref={wrapperRef} className="fixed top-0 left-0 right-0 z-50" style={{ boxShadow: shadow }}>
 
-      {/* ── Nav bar ── */}
       <nav className={`bg-white transition-colors duration-150 ${productsOpen ? "" : "border-b border-gray-100"}`}>
         <div className="w-full px-6">
           <div className="flex items-center h-16">
 
-            {/* Left — Logo */}
             <div className="flex-1 flex items-center">
               <a href="/" className="flex items-center">
                 <Image
@@ -120,10 +89,7 @@ export default function Navbar() {
               </a>
             </div>
 
-            {/* Center — Nav links (desktop) */}
             <div className="flex-1 hidden md:flex items-center justify-center gap-8">
-
-              {/* Продукти dropdown trigger */}
               <button
                 onClick={() => setProductsOpen(!productsOpen)}
                 className="flex items-center gap-1 text-sm font-medium transition-colors select-none"
@@ -131,7 +97,7 @@ export default function Navbar() {
                 onMouseLeave={e => (e.currentTarget.style.color = productsOpen ? "#29ABE2" : "")}
                 style={{ color: productsOpen ? "#29ABE2" : "" }}
               >
-                Продукти
+                {t.products}
                 <ChevronDown
                   size={14}
                   className="transition-transform duration-200"
@@ -139,7 +105,6 @@ export default function Navbar() {
                 />
               </button>
 
-              {/* Page links */}
               {pages.map(({ label, href }) => {
                 const active = pathname === href;
                 return (
@@ -157,7 +122,6 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Right — CTA (desktop) + burger (mobile) */}
             <div className="flex-1 flex items-center justify-end gap-3">
               <a
                 href="#"
@@ -165,7 +129,7 @@ export default function Navbar() {
                 onMouseEnter={e => (e.currentTarget.style.color = "#29ABE2")}
                 onMouseLeave={e => (e.currentTarget.style.color = "")}
               >
-                Увійти
+                {t.signIn}
               </a>
               <button
                 onClick={openDemoModal}
@@ -174,7 +138,7 @@ export default function Navbar() {
                 onMouseEnter={e => (e.currentTarget.style.background = "#1A8EC4")}
                 onMouseLeave={e => (e.currentTarget.style.background = "#29ABE2")}
               >
-                Записатись на демо
+                {t.bookDemo}
               </button>
               <button
                 className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
@@ -187,11 +151,10 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile menu */}
         {mobileOpen && (
           <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-1">
             <div className="pb-2">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-2 py-2">Продукти</p>
+              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-2 py-2">{t.productsMobileLabel}</p>
               {products.map(({ name, href, icon: Icon, color, bg }) => (
                 <a
                   key={name}
@@ -224,22 +187,20 @@ export default function Navbar() {
                 className="block w-full text-center text-white text-sm font-semibold rounded-lg px-5 py-2.5 transition-colors"
                 style={{ background: "#29ABE2" }}
               >
-                Записатись на демо
+                {t.bookDemo}
               </button>
             </div>
           </div>
         )}
       </nav>
 
-      {/* ── Desktop dropdown panel — sibling of nav, own backdrop-blur context ── */}
       {productsOpen && (
         <div className="hidden md:block bg-white border-b border-gray-100">
           <div className="max-w-[1100px] mx-auto px-6 py-6">
             <div className="flex gap-10">
 
-              {/* Products — two independent flex columns */}
               <div className="flex-1">
-                <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-4">Модулі</p>
+                <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-4">{t.modules}</p>
                 <div className="flex gap-2">
                   {[products.filter((_, i) => i % 2 === 0), products.filter((_, i) => i % 2 === 1)].map((col, ci) => (
                     <div key={ci} className="flex-1 flex flex-col gap-1">
@@ -267,17 +228,13 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* Divider */}
               <div className="w-px bg-gray-100 self-stretch" />
 
-              {/* Highlight card */}
               <div className="w-56 flex-shrink-0">
-                <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-4">Повний пакет</p>
+                <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-4">{t.fullPackage}</p>
                 <div className="rounded-xl border border-gray-200 p-4 bg-white/60">
-                  <p className="text-sm font-bold text-gray-900 mb-1">Усі модулі разом</p>
-                  <p className="text-xs text-gray-500 leading-relaxed mb-4">
-                    CRM, Виробництво, Проєкти, Склад та HR в одній системі
-                  </p>
+                  <p className="text-sm font-bold text-gray-900 mb-1">{t.allModules}</p>
+                  <p className="text-xs text-gray-500 leading-relaxed mb-4">{t.allModulesDesc}</p>
                   <button
                     onClick={() => { setProductsOpen(false); openDemoModal(); }}
                     className="w-full text-center text-white text-xs font-semibold rounded-lg px-4 py-2 transition-all"
@@ -285,7 +242,7 @@ export default function Navbar() {
                     onMouseEnter={e => (e.currentTarget.style.background = "#1A8EC4")}
                     onMouseLeave={e => (e.currentTarget.style.background = "#29ABE2")}
                   >
-                    Записатись на демо
+                    {t.bookDemo}
                   </button>
                 </div>
               </div>

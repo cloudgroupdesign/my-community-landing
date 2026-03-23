@@ -10,7 +10,6 @@
   --color-foreground: var(--foreground);
   --font-sans: 'Inter', system-ui, sans-serif;
 
-  /* My Community brand colors */
   --color-brand-blue: #29ABE2;
   --color-brand-blue-dark: #1A8EC4;
   --color-brand-blue-light: #E8F6FD;
@@ -18,21 +17,18 @@
   --color-brand-orange-dark: #E07A08;
 }
 
-/* ─── Typography scale ───────────────────────────────────────────
-   Base: H1 = 72px · T1 = 20px · Button-hero = 20px
-   ──────────────────────────────────────────────────────────────── */
+/* ─── Typography scale ─────────────────────────────────────── */
 :root {
-  --text-h1:   72px;  /* Hero heading                         */
-  --text-h2:   46px;  /* Section headings                     */
-  --text-h3:   32px;  /* Sub-section headings                 */
-  --text-h4:   24px;  /* Card headings                        */
-  --text-h5:   20px;  /* Small headings                       */
-  --text-t1:   20px;  /* Hero body / large description        */
-  --text-t2:   17px;  /* Regular body text                    */
-  --text-t3:   14px;  /* Small text, labels, captions         */
-  --text-btn-l: 20px; /* Hero button                         */
-  --text-btn-m: 16px; /* Regular button                      */
-
+  --text-h1:   72px;
+  --text-h2:   46px;
+  --text-h3:   32px;
+  --text-h4:   24px;
+  --text-h5:   20px;
+  --text-t1:   20px;
+  --text-t2:   17px;
+  --text-t3:   14px;
+  --text-btn-l: 20px;
+  --text-btn-m: 16px;
   --lh-heading: 1.05;
   --lh-body:    1.6;
 }
@@ -54,18 +50,37 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+  /* Prevent paint during scroll on older GPUs */
+  -webkit-overflow-scrolling: touch;
+}
+
 /* scroll-behavior managed via JS to avoid fighting browser scroll restoration */
 html.js-smooth-scroll {
   scroll-behavior: smooth;
 }
 
-/* Rotating gradient for mockup border + glow — GPU only */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  /* Promote body to its own compositor layer */
+  transform: translateZ(0);
+}
+
+/* ─── GPU-accelerated animations ──────────────────────────── */
+
+/* Rotating gradient — uses only transform (GPU, no layout/paint) */
 @keyframes gradientSpin {
   from { transform: rotate3d(0, 0, 1, 0deg); }
   to   { transform: rotate3d(0, 0, 1, 360deg); }
 }
 
-/* H1 word-by-word plop-in animation (Perspective.co style) */
+/* H1 word-by-word entrance — opacity + transform only */
 @keyframes plopInAnimation {
   0%   { opacity: 0; transform: translateY(2.5rem) rotateX(-25deg); }
   100% { opacity: 1; transform: translateY(0)      rotateX(0deg);   }
@@ -79,7 +94,6 @@ html.js-smooth-scroll {
   vertical-align: middle;
 }
 
-/* Stage 1: H1 words — paused until .hero-stage-1 is added */
 .hero-word-inner {
   display: inline-block;
   margin-top: -0.15em;
@@ -89,17 +103,49 @@ html.js-smooth-scroll {
   opacity: 0;
   animation: plopInAnimation 0.8s cubic-bezier(0.3, 1.34, 0.38, 1) both;
   animation-play-state: paused;
+  /* Hint compositor — avoids re-paint on each frame */
+  will-change: opacity, transform;
 }
+
 .hero-stage-1 .hero-word-inner {
   animation-play-state: running;
 }
 
-/* Hero entrance — opacity/transform managed via inline React styles */
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Free the hint once animation completes to reduce memory */
+.hero-stage-1 .hero-word-inner[style*="animation-delay"] {
+  will-change: auto;
 }
+
+/* ─── Respect reduced-motion preference ───────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes gradientSpin {
+    from { transform: rotate3d(0, 0, 1, 0deg); }
+    to   { transform: rotate3d(0, 0, 1, 0deg); }
+  }
+
+  @keyframes plopInAnimation {
+    0%   { opacity: 0; transform: none; }
+    100% { opacity: 1; transform: none; }
+  }
+
+  .hero-word-inner {
+    animation-duration: 0.01ms !important;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Footer social hover — brand colors ──────────────────── */
+.social-link[data-social="facebook"]:hover .social-icon  { color: #1877F2; }
+.social-link[data-social="facebook"]:hover .social-name  { color: #1877F2; }
+.social-link[data-social="instagram"]:hover .social-icon { color: #E1306C; }
+.social-link[data-social="instagram"]:hover .social-name { color: #E1306C; }
+.social-link[data-social="youtube"]:hover .social-icon   { color: #FF0000; }
+.social-link[data-social="youtube"]:hover .social-name   { color: #FF0000; }
+.social-link[data-social="linkedin"]:hover .social-icon  { color: #0A66C2; }
+.social-link[data-social="linkedin"]:hover .social-name  { color: #0A66C2; }
+.social-link[data-social="telegram"]:hover .social-icon  { color: #0088CC; }
+.social-link[data-social="telegram"]:hover .social-name  { color: #0088CC; }

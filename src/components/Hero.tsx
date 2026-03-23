@@ -3,45 +3,39 @@
 import { useEffect, useRef, useState } from "react";
 import { PlayCircleIcon } from "@heroicons/react/24/solid";
 import { StarIcon } from "@heroicons/react/20/solid";
-
-const H1_LINES = [
-  ["Єдина", "система"],
-  ["управління", "бізнесом"],
-  ["для", "підприємців"],
-];
-
-// H1 words total count for animation duration estimate
-const WORD_COUNT = H1_LINES.flat().length; // 6 words
-const H1_ANIM_DURATION = WORD_COUNT * 120 + 800; // ~1520ms until last word finishes
+import { useLang } from "@/lib/lang";
+import { i18n } from "@/lib/i18n";
 
 export default function Hero() {
+  const { lang } = useLang();
+  const t = i18n[lang].hero;
+
+  const H1_LINES = t.h1Lines as string[][];
+  const WORD_COUNT = H1_LINES.flat().length;
+  const H1_ANIM_DURATION = WORD_COUNT * 120 + 800;
+
   const mockupRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const [stage, setStage] = useState(0); // 0=hidden 1=h1 2=desc 3=rest
+  const [stage, setStage] = useState(0);
 
-  // ── Staged entrance animation ────────────────────────────
   useEffect(() => {
     const start = () => {
-      setStage(1);                                            // H1 words
-      setTimeout(() => setStage(2), H1_ANIM_DURATION * 0.5); // desc ~760ms
-      setTimeout(() => setStage(3), H1_ANIM_DURATION * 0.8); // rest ~1220ms
+      setStage(1);
+      setTimeout(() => setStage(2), H1_ANIM_DURATION * 0.5);
+      setTimeout(() => setStage(3), H1_ANIM_DURATION * 0.8);
     };
-    // Wait for ScrollRestoration to signal readiness
     window.addEventListener("scroll-restored", start, { once: true });
-    // Fallback: start after 300ms even without the event
     const fallback = setTimeout(start, 300);
     return () => {
       window.removeEventListener("scroll-restored", start);
       clearTimeout(fallback);
     };
-  }, []);
+  }, [H1_ANIM_DURATION]);
 
-  // ── Scroll-driven mockup tilt ─────────────────────────────
   useEffect(() => {
     let rafId: number | null = null;
     let ticking = false;
-    // Cached values — never read inside scroll handler
-    let targetScroll = 1; // scrollY at which mockup center hits viewport center
+    let targetScroll = 1;
 
     const measureTarget = () => {
       if (!mockupRef.current) return;
@@ -55,7 +49,6 @@ export default function Hero() {
     const update = () => {
       ticking = false;
       if (!mockupRef.current) return;
-      // Progress from 0 (page top) → 1 (mockup centered) using scrollY only
       const progress = Math.min(1, Math.max(0, window.scrollY / targetScroll));
       const rotateX = 24 * (1 - progress);
       const scale   = 0.88 + 0.12 * progress;
@@ -73,9 +66,6 @@ export default function Hero() {
 
     measureTarget();
 
-    // On mount: if page is already scrolled (reload/navigate), smoothly
-    // ease the mockup from its initial tilt to the correct position
-    // then switch to instant updates so scroll feels snappy
     if (window.scrollY > 0 && mockupRef.current) {
       mockupRef.current.style.transition =
         "transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
@@ -93,7 +83,6 @@ export default function Hero() {
       };
     }
 
-    // Page loaded at top — no correction needed, go straight to instant mode
     if (mockupRef.current) mockupRef.current.style.transition = "none";
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -105,7 +94,6 @@ export default function Hero() {
     };
   }, []);
 
-  // Derive stage classes for the section wrapper
   const stageClass = [
     stage >= 1 ? "hero-stage-1" : "",
     stage >= 2 ? "hero-stage-2" : "",
@@ -114,17 +102,8 @@ export default function Hero() {
 
   return (
     <section ref={sectionRef} className={`bg-white ${stageClass}`} style={{ paddingTop: 80 }}>
-      <div className="max-w-[1080px] mx-auto px-6 lg:px-8 text-center" style={{ paddingTop: 40, paddingBottom: 72 }}>
+      <div className="max-w-[1080px] mx-auto px-6 lg:px-8 text-center" style={{ paddingTop: 64, paddingBottom: 72 }}>
 
-        {/* Badge — part of Stage 1 (fades with H1 area) */}
-        <div className="hero-word-outer" style={{ display: "block", overflow: "visible", perspective: "none" }}>
-          <div className="hero-word-inner inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-8 text-sm font-medium text-gray-500 bg-gray-100 border border-gray-200" style={{ animationDelay: "0s" }}>
-            <span className="text-base leading-none">🇺🇦</span>
-            Українська ERP/CRM система для бізнесу
-          </div>
-        </div>
-
-        {/* H1 — word-by-word animation (Stage 1) */}
         <h1
           className="mb-8"
           style={{
@@ -155,23 +134,16 @@ export default function Hero() {
           ))}
         </h1>
 
-        {/* Subtitle — Stage 2 */}
         <div style={{
           opacity: stage >= 2 ? 1 : 0,
           transform: stage >= 2 ? "translateY(0)" : "translateY(12px)",
           transition: "opacity 0.7s ease, transform 0.7s ease",
         }}>
-          <p
-            className="text-t1 max-w-2xl mx-auto mb-12"
-            style={{ color: "#4B5563" }}
-          >
-            My Community об&apos;єднує продажі, комунікації, задачі, команди, виробництво,
-            фінанси та аналітику в одному зручному просторі.
-            Без хаосу. Без десятків сервісів.
+          <p className="text-t1 max-w-2xl mx-auto mb-12" style={{ color: "#4B5563" }}>
+            {t.subtitle}
           </p>
         </div>
 
-        {/* CTA Buttons + Social proof — Stage 3 */}
         <div style={{
           opacity: stage >= 3 ? 1 : 0,
           transform: stage >= 3 ? "translateY(0)" : "translateY(16px)",
@@ -183,7 +155,7 @@ export default function Hero() {
               className="inline-flex items-center justify-center gap-2 text-white text-btn-l rounded-xl px-8 py-4 transition-all duration-200 hover:opacity-90"
               style={{ background: "#29ABE2" }}
             >
-              Записатися на демо-перегляд
+              {t.bookDemo}
             </a>
             <a
               href="#features"
@@ -191,7 +163,7 @@ export default function Hero() {
               style={{ color: "#141414" }}
             >
               <PlayCircleIcon className="w-5 h-5 text-gray-400" />
-              Переглянути демо
+              {t.watchDemo}
             </a>
           </div>
 
@@ -203,23 +175,22 @@ export default function Hero() {
                 ))}
               </div>
               <span className="font-semibold" style={{ color: "#141414" }}>4.9</span>
-              <span>· 200+ відгуків</span>
+              <span>· {t.reviews}</span>
             </div>
             <span className="hidden sm:block text-gray-300">|</span>
             <div className="flex items-center gap-1.5">
               <span className="font-semibold" style={{ color: "#141414" }}>500+</span>
-              <span>компаній довіряють</span>
+              <span>{t.companiesTrust}</span>
             </div>
             <span className="hidden sm:block text-gray-300">|</span>
             <div className="flex items-center gap-1.5">
               <span className="font-semibold" style={{ color: "#141414" }}>10+</span>
-              <span>років досвіду команди</span>
+              <span>{t.teamExp}</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ── Mockup — Stage 3 ── */}
       <div className="max-w-[1080px] mx-auto px-6 lg:px-8" style={{
         paddingBottom: 96,
         isolation: "isolate",
@@ -234,11 +205,9 @@ export default function Hero() {
             transformOrigin: "center top",
             transform: "perspective(1200px) rotateX(24deg) scale(0.88)",
             transition: "none",
-            willChange: "transform",
             isolation: "isolate",
           }}
         >
-          {/* Animated glow layer — blurred rotating gradient behind the mockup */}
           <div
             aria-hidden
             style={{
@@ -266,7 +235,6 @@ export default function Hero() {
             />
           </div>
 
-          {/* Animated gradient border */}
           <div
             style={{
               position: "relative",
@@ -275,7 +243,6 @@ export default function Hero() {
               overflow: "hidden",
             }}
           >
-            {/* Rotating conic gradient — clipped to 2px border by overflow:hidden */}
             <div
               aria-hidden
               style={{
@@ -288,7 +255,6 @@ export default function Hero() {
                 animation: "gradientSpin 5s linear infinite",
               }}
             />
-            {/* Placeholder for video/gif — 588px */}
             <div
               style={{
                 position: "relative",
