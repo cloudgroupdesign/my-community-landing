@@ -47,8 +47,8 @@ export default function PainPoints() {
     <section id="problems" className="py-24 bg-white">
       <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Header — left-aligned */}
-        <div className="mb-16">
+        {/* Header — centered */}
+        <div className="mb-16 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
             Болі бізнесу
           </p>
