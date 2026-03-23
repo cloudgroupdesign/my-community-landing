@@ -114,7 +114,7 @@ export default function Hero() {
 
   return (
     <section ref={sectionRef} className={`bg-white ${stageClass}`} style={{ paddingTop: 80 }}>
-      <div className="max-w-[1080px] mx-auto px-6 lg:px-8 text-center" style={{ paddingTop: 40, paddingBottom: 48 }}>
+      <div className="max-w-[1080px] mx-auto px-6 lg:px-8 text-center" style={{ paddingTop: 40, paddingBottom: 72 }}>
 
         {/* Badge — part of Stage 1 (fades with H1 area) */}
         <div className="hero-word-outer" style={{ display: "block", overflow: "visible", perspective: "none" }}>

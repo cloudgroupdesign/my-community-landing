@@ -49,12 +49,9 @@ export default function PainPoints() {
 
         {/* Header — centered */}
         <div className="mb-16 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">
-            Болі бізнесу
-          </p>
-          <h2
+<h2
             className="text-gray-900 font-bold leading-tight"
-            style={{ fontSize: "clamp(28px, 3.2vw, 44px)", letterSpacing: "-0.02em" }}
+            style={{ fontSize: "46px", letterSpacing: "-0.02em" }}
           >
             Які задачі вирішує система
           </h2>

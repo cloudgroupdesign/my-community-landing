@@ -160,10 +160,7 @@ export default function Integrations() {
       <div className="max-w-[1080px] mx-auto px-6 lg:px-8 mb-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className="font-semibold text-sm uppercase tracking-widest mb-3" style={{ color: "#29ABE2" }}>
-            Екосистема
-          </p>
-          <h2 className="text-h2 text-gray-900 mb-4">Підключіться до улюблених сервісів</h2>
+<h2 className="text-h2 text-gray-900 mb-6">Підключіться до улюблених сервісів</h2>
           <p className="text-t2 text-gray-500 max-w-2xl mx-auto">
             My Community інтегрується з інструментами, які ви вже використовуєте — без зайвих налаштувань
           </p>

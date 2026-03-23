@@ -20,11 +20,8 @@ export default function Advantages() {
 
         {/* Header */}
         <div className="text-center mb-14">
-          <p className="font-semibold text-sm uppercase tracking-widest mb-3" style={{ color: "#29ABE2" }}>
-            Переваги
-          </p>
-          <h2 className="text-h2 text-gray-900 mb-4">Чим My Community відрізняється</h2>
-          <p className="text-t1 text-gray-500 max-w-2xl mx-auto">
+<h2 className="text-h2 text-gray-900 mb-6">Чим My Community відрізняється</h2>
+          <p className="text-t2 text-gray-500 max-w-2xl mx-auto">
             Не просто ще один SaaS — а рішення, яке розуміє ваш бізнес
           </p>
         </div>

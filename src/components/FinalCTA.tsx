@@ -42,7 +42,7 @@ export default function FinalCTA() {
         </h2>
 
         {/* Subtitle */}
-        <p className="text-t1 text-gray-500 mb-10" style={{ textAlign: "center" }}>
+        <p className="text-t2 text-gray-500 mb-10" style={{ textAlign: "center" }}>
           Приєднуйтесь до 500+ компаній, які вже управляють бізнесом ефективно з My Community
         </p>
 

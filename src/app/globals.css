@@ -23,12 +23,12 @@
    ──────────────────────────────────────────────────────────────── */
 :root {
   --text-h1:   72px;  /* Hero heading                         */
-  --text-h2:   48px;  /* Section headings                     */
+  --text-h2:   46px;  /* Section headings                     */
   --text-h3:   32px;  /* Sub-section headings                 */
   --text-h4:   24px;  /* Card headings                        */
   --text-h5:   20px;  /* Small headings                       */
   --text-t1:   20px;  /* Hero body / large description        */
-  --text-t2:   16px;  /* Regular body text                    */
+  --text-t2:   17px;  /* Regular body text                    */
   --text-t3:   14px;  /* Small text, labels, captions         */
   --text-btn-l: 20px; /* Hero button                         */
   --text-btn-m: 16px; /* Regular button                      */

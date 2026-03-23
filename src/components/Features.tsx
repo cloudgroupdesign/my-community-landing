@@ -71,13 +71,10 @@ export default function Features() {
 
         {/* Header */}
         <div className="text-center mb-12">
-          <p className="text-sky-500 font-semibold text-sm uppercase tracking-widest mb-3">
-            Можливості
-          </p>
-          <h2 className="text-h2 text-gray-900 mb-4">
+<h2 className="text-h2 text-gray-900 mb-6">
             Можливості My Community
           </h2>
-          <p className="text-t1 text-gray-500 max-w-2xl mx-auto">
+          <p className="text-t2 text-gray-500 max-w-2xl mx-auto">
             Все що потрібно для ефективного бізнесу — в одному продукті
           </p>
         </div>
@@ -123,13 +120,6 @@ export default function Features() {
             style={{ background: tab.lightBg }}
           >
             <div className="space-y-5">
-              {/* Label */}
-              <p
-                className="text-[11px] font-bold uppercase tracking-widest"
-                style={{ color: tab.color }}
-              >
-                {tab.label}
-              </p>
 
               {/* Headline */}
               <h3 className="text-2xl font-bold text-gray-900 leading-snug">

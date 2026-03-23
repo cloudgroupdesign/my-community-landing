@@ -38,11 +38,8 @@ export default function ForWho() {
     <section id="for-who" className="py-24 bg-white">
       <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <p className="font-semibold text-sm uppercase tracking-widest mb-3" style={{ color: "#29ABE2" }}>
-            Аудиторія
-          </p>
-          <h2 className="text-h2 text-gray-900 mb-4">Для кого My Community</h2>
-          <p className="text-t1 text-gray-500 max-w-2xl mx-auto">
+<h2 className="text-h2 text-gray-900 mb-6">Для кого My Community</h2>
+          <p className="text-t2 text-gray-500 max-w-2xl mx-auto">
             Система працює для різних типів бізнесу — від малого підприємства до середнього виробництва
           </p>
         </div>
