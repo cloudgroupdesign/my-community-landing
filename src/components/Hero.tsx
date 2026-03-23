@@ -10,7 +10,7 @@ export default function Hero() {
   const { lang } = useLang();
   const t = i18n[lang].hero;
 
-  const H1_LINES = t.h1Lines as string[][];
+  const H1_LINES = t.h1Lines as unknown as string[][];
   const WORD_COUNT = H1_LINES.flat().length;
   const H1_ANIM_DURATION = WORD_COUNT * 120 + 800;
 
