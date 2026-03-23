@@ -32,7 +32,7 @@ export default function Advantages() {
         <div className="flex flex-col gap-4">
 
           {/* Hero bento card */}
-          <div className="rounded-3xl overflow-hidden bg-gray-100 flex flex-col md:flex-row min-h-[360px]">
+          <div className="rounded-3xl overflow-hidden bg-gray-100 flex flex-col md:flex-row min-h-[460px]">
 
             {/* Visual placeholder */}
             <div className="relative flex-1 min-h-[220px] md:min-h-0 bg-gray-200 flex flex-col justify-end p-8">
@@ -58,7 +58,7 @@ export default function Advantages() {
           {/* 3 small cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {smallCards.map((card, i) => (
-              <div key={i} className="rounded-3xl overflow-hidden bg-gray-100 flex flex-col min-h-[260px]">
+              <div key={i} className="rounded-3xl overflow-hidden bg-gray-100 flex flex-col min-h-[340px]">
                 {/* Visual placeholder */}
                 <div className="flex-1 bg-gray-200" />
                 {/* Label */}
