@@ -2,10 +2,10 @@ export default function Story() {
   return (
     <section className="py-24 bg-white">
       <div className="max-w-[1080px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
 
           {/* Left — text, left-aligned */}
-          <div className="flex flex-col justify-between min-h-[480px] lg:min-h-[540px]">
+          <div className="flex flex-col justify-between">
             {/* Top: label + heading */}
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-5">
@@ -37,7 +37,11 @@ export default function Story() {
                     "розрізнені інструменти та ручну операційну роботу.",
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 text-gray-600">
-                      <span className="mt-2 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-sky-500" />
+                      <svg className="mt-0.5 flex-shrink-0 w-4 h-4 text-sky-500" viewBox="0 0 16 16" fill="none">
+                        <circle cx="8" cy="8" r="8" fill="currentColor" fillOpacity="0.12" />
+                        <circle cx="8" cy="8" r="7.25" stroke="currentColor" strokeWidth="0.75" />
+                        <path d="M5 8.5l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
                       <span className="leading-relaxed">{item}</span>
                     </li>
                   ))}
@@ -52,7 +56,7 @@ export default function Story() {
 
           {/* Right — photo placeholder card */}
           <div
-            className="rounded-2xl overflow-hidden min-h-[480px] lg:min-h-[540px] flex flex-col justify-end p-8 relative"
+            className="rounded-2xl overflow-hidden flex flex-col justify-end p-8 relative"
             style={{
               background: "linear-gradient(135deg, #dbeafe 0%, #e0f2fe 40%, #fde8d8 100%)",
             }}
